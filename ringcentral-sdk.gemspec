@@ -1,8 +1,6 @@
-require File.expand_path('../lib/ringcentral/version', __FILE__)
-
 Gem::Specification.new do |gem|
   gem.name          = 'ringcentral-sdk'
-  gem.version       = RingCentral::VERSION
+  gem.version       = '0.1.0'
   gem.authors       = ['Tyler Liu']
   gem.email         = ['tyler.liu@ringcentral.com']
   gem.description   = 'RingCentral Ruby SDK.'
@@ -11,10 +9,9 @@ Gem::Specification.new do |gem|
   gem.license       = 'MIT'
 
   gem.require_paths = ['lib']
-  gem.files         = %w(.yardopts README.md ringcentral-sdk.gemspec)
+  gem.files         = %w(Rakefile README.md ringcentral-sdk.gemspec)
   gem.files += Dir['lib/**/*.rb']
-  gem.files += Dir['spec/**/*.rb']
-  gem.test_files = Dir['spec/**/*.rb']
+  gem.test_files    = ['test/**/*.rb']
 
   gem.add_dependency('rest-client', '>= 2.0.2')
 end
