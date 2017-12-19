@@ -3,7 +3,7 @@
 
 ## Installation
 
-Add `gem 'ringcentral-sdk'` to `Gemfile`.
+Add `gem 'ringcentral-sdk'` to `Gemfile` and run `bundle install`.
 
 
 ## Documentation
@@ -31,6 +31,8 @@ password=password
 receiver=number-to-receiver-sms
 ```
 
+Run `rake test`
+
 
 ## License
 
@@ -42,4 +44,3 @@ MIT
 - unit tests
 - Travis CI
 - code coverage
-- publish to https://rubygems.org
