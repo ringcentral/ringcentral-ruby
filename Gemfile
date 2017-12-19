@@ -2,6 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rest-client'
 
-group :development do
+group :test do
   gem 'dotenv'
 end
