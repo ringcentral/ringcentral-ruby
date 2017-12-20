@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name          = 'ringcentral-sdk'
-  gem.version       = '0.1.0'
+  gem.version       = '0.2.0'
   gem.authors       = ['Tyler Liu']
   gem.email         = ['tyler.liu@ringcentral.com']
   gem.description   = 'Ruby SDK for you to access RingCentral platform API.'
@@ -15,4 +15,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('rest-client', '>= 2.0.2')
   gem.add_dependency('addressable', '>= 2.5.2')
+  gem.add_dependency('concurrent-ruby', '>= 1.0.2')
 end

@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    concurrent-ruby (1.0.2)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
@@ -26,6 +27,7 @@ PLATFORMS
 
 DEPENDENCIES
   addressable
+  concurrent-ruby
   dotenv
   rest-client
 

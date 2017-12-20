@@ -28,27 +28,30 @@ class RingCentral
   def token=(value)
     @token = value
     if @timer != nil
-      # todo: cancel the timer
+      @timer.shutdown
       @timer = nil
     end
     if @auto_refresh && value != nil
-      # todo: create the timer
+      @timer = Concurrent::TimerTask.new(execution_interval: value.expires_in - 120, timeout_interval: 60) do
+        refresh
+      end
+      @timer.execute
     end
   end
 
   def authorize(username = nil, extension = nil, password = nil, auth_code = nil, redirect_uri = nil)
     if auth_code
       payload = {
-        'grant_type': 'authorization_code',
-        'code': auth_code,
-        'redirect_uri': redirect_uri,
+        grant_type: 'authorization_code',
+        code: auth_code,
+        redirect_uri: redirect_uri,
       }
     else
       payload = {
-        'grant_type': 'password',
-        'username': username,
-        'extension': extension,
-        'password': password,
+        grant_type: 'password',
+        username: username,
+        extension: extension,
+        password: password,
       }
     end
     r = post('/restapi/oauth/token', payload: payload)
@@ -59,8 +62,8 @@ class RingCentral
   def refresh
     return if @token == nil
     payload = {
-      'grant_type': 'refresh_token',
-      'refresh_token': @token.refresh_token
+      grant_type: 'refresh_token',
+      refresh_token: @token.refresh_token
     }
     @token = nil
     r = post('/restapi/oauth/token', payload: payload)
@@ -80,10 +83,10 @@ class RingCentral
   def authorize_uri(redirect_uri, state = '')
     uri = Addressable::URI.parse(@server) + '/restapi/oauth/authorize'
     uri.query_values = {
-      'response_type': 'code',
-      'state': state,
-      'redirect_uri': redirect_uri,
-      'client_id': @app_secret
+      response_type: 'code',
+      state: state,
+      redirect_uri: redirect_uri,
+      client_id: @app_secret
     }
     uri.to_s
   end
