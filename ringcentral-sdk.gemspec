@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.files        += Dir['lib/**/*.rb']
   gem.test_files    = Dir['test/**/*.rb']
 
-  gem.add_dependency('rest-client', '>= 2.0.2')
-  gem.add_dependency('addressable', '>= 2.5.2')
-  gem.add_dependency('concurrent-ruby', '>= 1.0.2')
+  gem.add_dependency('rest-client', '~> 2.0', '>= 2.0.2')
+  gem.add_dependency('addressable', '~> 2.5', '>= 2.5.2')
+  gem.add_dependency('concurrent-ruby', '~> 1.0', '>= 1.0.2')
 end

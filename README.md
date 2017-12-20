@@ -13,7 +13,20 @@ https://developer.ringcentral.com/api-docs/latest/index.html
 
 ## Usage
 
-WIP.
+```ruby
+require 'ringcentral'
+
+rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
+rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
+
+# get
+r = rc.get('/restapi/v1.0/account/~/extension/~')
+assert_not_equal nil, r
+assert_equal '101', JSON.parse(r.body)['extensionNumber']
+```
+
+
+For more sample code, please refer to the [test cases](/test).
 
 
 ## How to test
