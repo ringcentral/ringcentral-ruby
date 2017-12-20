@@ -25,11 +25,17 @@ class RingCentralTest < Test::Unit::TestCase
     Dotenv.load
     rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
     assert_equal nil, rc.token
-    begin
-      rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
-    rescue RestClient::ExceptionWithResponse => e
-      puts e.response
-    end
+
+    # create token
+    rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
     assert_not_equal nil, rc.token
+
+    # refresh token
+    rc.refresh
+    assert_not_equal nil, rc.token
+
+    # revoke token
+    rc.revoke
+    assert_equal nil, rc.token
   end
 end

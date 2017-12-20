@@ -1,6 +1,8 @@
 require 'base64'
 require 'addressable/uri'
 require 'subscription'
+require 'rest-client'
+require 'json'
 
 class RingCentral
   def self.SANDBOX_SERVER
@@ -19,6 +21,7 @@ class RingCentral
     @app_secret = app_secret
     @server = server
     @auto_refresh = true
+    @token = nil
   end
 
   def token
@@ -39,8 +42,8 @@ class RingCentral
     end
   end
 
-  def authorize(username = nil, extension = nil, password = nil, auth_code = nil, redirect_uri = nil)
-    if auth_code
+  def authorize(username: nil, extension: nil, password: nil, auth_code: nil, redirect_uri: nil)
+    if auth_code != nil
       payload = {
         grant_type: 'authorization_code',
         code: auth_code,
@@ -54,30 +57,28 @@ class RingCentral
         password: password,
       }
     end
-    r = post('/restapi/oauth/token', payload: payload)
+    r = RestClient.post((Addressable::URI.parse(@server) + '/restapi/oauth/token').to_s, payload, { 'Authorization': autorization_header })
     @token = JSON.parse(r.body)
-    r
   end
 
   def refresh
     return if @token == nil
     payload = {
       grant_type: 'refresh_token',
-      refresh_token: @token.refresh_token
+      refresh_token: @token['refresh_token']
     }
     @token = nil
-    r = post('/restapi/oauth/token', payload: payload)
+    r = RestClient.post((Addressable::URI.parse(@server) + '/restapi/oauth/token').to_s, payload, { 'Authorization': autorization_header })
     @token = JSON.parse(r.body)
-    r
   end
 
   def revoke
     return if @token == nil
     payload = {
-      token: @token.access_token
+      token: @token['access_token']
     }
     @token = nil
-    post('/restapi/oauth/revoke', payload: payload)
+    RestClient.post((Addressable::URI.parse(@server) + '/restapi/oauth/revoke').to_s, payload, { 'Authorization': autorization_header })
   end
 
   def authorize_uri(redirect_uri, state = '')
@@ -92,19 +93,19 @@ class RingCentral
   end
 
   def get(endpoint, params = nil)
-    request(:GET, endpoint, params: params)
+    request(:get, endpoint, params: params)
   end
 
-  def post(endpoint, payload = nil, params = nil, files = nil)
-    request(:POST, endpoint, payload: payload, params: params, files: files)
+  def post(endpoint, payload: nil, params: nil, files: nil)
+    request(:post, endpoint, payload: payload, params: params, files: files)
   end
 
-  def put(endpoint, payload = nil, params = nil, files = nil)
-    request(:PUT, endpoint, payload: payload, params: params, files: files)
+  def put(endpoint, payload: nil, params: nil, files: nil)
+    request(:put, endpoint, payload: payload, params: params, files: files)
   end
 
   def delete(endpoint, params = nil)
-    request(:DELETE, endpoint, params: params)
+    request(:delete, endpoint, params: params)
   end
 
   def subscription(event_filters, callback)
@@ -114,23 +115,26 @@ class RingCentral
   private
 
   def basic_key
-    Base64.encode64 "#{@app_key}:#{@app_secret}"
+    Base64.encode64("#{@app_key}:#{@app_secret}").gsub(/\s/, '')
   end
 
   def autorization_header
-    return "Bearer #{@token.access_token}" if @token != nil
-    return "Basic #{basic_key()}"
+    return "Bearer #{@token['access_token']}" if @token != nil
+    return "Basic #{basic_key}"
   end
 
-  def request(method, endpoint, params = nil, payload = nil, files = nil)
+  def request(method, endpoint, params: nil, payload: nil, files: nil)
     url = (Addressable::URI.parse(@server) + endpoint).to_s
     user_agent_header = "ringcentral/ringcentral-ruby Ruby #{RUBY_VERSION} #{RUBY_PLATFORM}"
     headers = {
-      'Authorization': autorization_header(),
+      'Authorization': autorization_header,
       'User-Agent': user_agent_header,
       'RC-User-Agent': user_agent_header,
     }
-    RestClient::Request.execute(method: method.to_sym, url: url, params: params,
-      payload: (payload == nil ? nil : payload.to_json), headers: headers, files: files)
+    if payload != nil
+      headers['Content-Type'] = 'application/json'
+      payload = payload.to_s
+    end
+    RestClient::Request.execute(method: method.to_sym, url: url, params: params, payload: payload, headers: headers, files: files)
   end
 end
