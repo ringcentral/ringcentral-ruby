@@ -14,4 +14,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = Dir['test/**/*.rb']
 
   gem.add_dependency('rest-client', '>= 2.0.2')
+  gem.add_dependency('addressable', '>= 2.5.2')
 end

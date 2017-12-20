@@ -1,3 +1,7 @@
+require 'base64'
+require 'addressable/uri'
+require 'subscription'
+
 class RingCentral
   def self.SANDBOX_SERVER
     'https://platform.devtest.ringcentral.com'
@@ -52,5 +56,56 @@ class RingCentral
 
   def authorize_uri(redirect_uri, state = '')
     # todo: construct authorize_uri
+    uri = Addressable::URI.parse(@server) + '/restapi/oauth/authorize'
+    uri.query_values = {
+      'response_type': 'code',
+      'state': state,
+      'redirect_uri': redirect_uri,
+      'client_id': @app_secret
+    }
+    uri.to_s
+  end
+
+  def get(endpoint, params = nil)
+    request(:GET, endpoint, params: params)
+  end
+
+  def post(endpoint, payload = nil, params = nil, files = nil)
+    request(:POST, endpoint, payload: payload, params: params, files: files)
+  end
+
+  def put(endpoint, payload = nil, params = nil, files = nil)
+    request(:PUT, endpoint, payload: payload, params: params, files: files)
+  end
+
+  def delete(endpoint, params = nil)
+    request(:DELETE, endpoint, params: params)
+  end
+
+  def subscription(event_filters, callback)
+    Subscription.new(event_filters, callback)
+  end
+
+  private
+
+  def basic_key
+    Base64.encode64 "#{@app_key}:#{@app_secret}"
+  end
+
+  def autorization_header
+    return "Bearer #{@token.access_token}" if @token != nil
+    return "Basic #{basic_key()}"
+  end
+
+  def request(method, endpoint, params = nil, payload = nil, files = nil)
+    url = (Addressable::URI.parse(@server) + endpoint).to_s
+    user_agent_header = "ringcentral/ringcentral-ruby Ruby #{RUBY_VERSION} #{RUBY_PLATFORM}"
+    headers = {
+      'Authorization': autorization_header(),
+      'User-Agent': user_agent_header,
+      'RC-User-Agent': user_agent_header,
+    }
+    RestClient::Request.execute(method: method.to_sym, url: url, params: params,
+      payload: (payload == nil ? nil : payload.to_json), headers: headers, files: files)
   end
 end
