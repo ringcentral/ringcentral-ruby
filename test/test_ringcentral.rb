@@ -56,10 +56,26 @@ class RingCentralTest < Test::Unit::TestCase
       text: 'Hello world'
     })
     assert_not_equal nil, r
-    assert_equal 'SMS', JSON.parse(r.body)['type']
+    message = JSON.parse(r.body)
+    assert_equal 'SMS', message['type']
+    messageUrl = "/restapi/v1.0/account/~/extension/~/message-store/#{message['id']}"
 
     # put
+    r = rc.put(messageUrl, payload: { readStatus: 'Unread' })
+    assert_not_equal nil, r
+    message = JSON.parse(r.body)
+    assert_equal 'Unread', message['readStatus']
+    r = rc.put(messageUrl, payload: { readStatus: 'Read' })
+    assert_not_equal nil, r
+    message = JSON.parse(r.body)
+    assert_equal 'Read', message['readStatus']
 
     # delete
+    r = rc.delete(messageUrl)
+    assert_not_equal nil, r
+    r = rc.get(messageUrl)
+    assert_not_equal nil, r
+    message = JSON.parse(r.body)
+    assert_equal 'Deleted', message['availability']
   end
 end
