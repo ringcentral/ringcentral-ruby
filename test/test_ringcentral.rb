@@ -1,5 +1,6 @@
 require 'test/unit'
 require 'ringcentral'
+require 'dotenv'
 
 class RingCentralTest < Test::Unit::TestCase
   def test_class_variables
@@ -18,5 +19,17 @@ class RingCentralTest < Test::Unit::TestCase
   def test_authorize_uri
     rc = RingCentral.new('app_key', 'app_secret', RingCentral.SANDBOX_SERVER)
     assert_equal RingCentral.SANDBOX_SERVER + '/restapi/oauth/authorize?client_id=app_secret&redirect_uri=https%3A%2F%2Fexample.com&response_type=code&state=mystate', rc.authorize_uri('https://example.com', 'mystate')
+  end
+
+  def test_password_flow
+    Dotenv.load
+    rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
+    assert_equal nil, rc.token
+    begin
+      rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
+    rescue RestClient::ExceptionWithResponse => e
+      puts e.response
+    end
+    assert_not_equal nil, rc.token
   end
 end
