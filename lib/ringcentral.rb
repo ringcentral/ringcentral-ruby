@@ -57,7 +57,8 @@ class RingCentral
         password: password,
       }
     end
-    r = RestClient.post((Addressable::URI.parse(@server) + '/restapi/oauth/token').to_s, payload, { 'Authorization': autorization_header })
+    @token = nil
+    r = post('/restapi/oauth/token', payload: payload)
     @token = JSON.parse(r.body)
   end
 
@@ -68,7 +69,7 @@ class RingCentral
       refresh_token: @token['refresh_token']
     }
     @token = nil
-    r = RestClient.post((Addressable::URI.parse(@server) + '/restapi/oauth/token').to_s, payload, { 'Authorization': autorization_header })
+    r = post('/restapi/oauth/token', payload: payload)
     @token = JSON.parse(r.body)
   end
 
@@ -78,7 +79,7 @@ class RingCentral
       token: @token['access_token']
     }
     @token = nil
-    RestClient.post((Addressable::URI.parse(@server) + '/restapi/oauth/revoke').to_s, payload, { 'Authorization': autorization_header })
+    post('/restapi/oauth/revoke', payload: payload)
   end
 
   def authorize_uri(redirect_uri, state = '')
@@ -128,12 +129,11 @@ class RingCentral
     user_agent_header = "ringcentral/ringcentral-ruby Ruby #{RUBY_VERSION} #{RUBY_PLATFORM}"
     headers = {
       'Authorization': autorization_header,
-      'User-Agent': user_agent_header,
-      'RC-User-Agent': user_agent_header,
+      'RC-User-Agent': user_agent_header
     }
-    if payload != nil
+    if payload != nil && @token != nil
       headers['Content-Type'] = 'application/json'
-      payload = payload.to_s
+      payload = payload.to_json
     end
     RestClient::Request.execute(method: method.to_sym, url: url, params: params, payload: payload, headers: headers, files: files)
   end

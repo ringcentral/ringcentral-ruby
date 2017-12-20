@@ -38,4 +38,28 @@ class RingCentralTest < Test::Unit::TestCase
     rc.revoke
     assert_equal nil, rc.token
   end
+
+  def test_http_methods
+    Dotenv.load
+    rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
+    rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
+
+    # get
+    r = rc.get('/restapi/v1.0/account/~/extension/~')
+    assert_not_equal nil, r
+    assert_equal '101', JSON.parse(r.body)['extensionNumber']
+
+    # post
+    r = rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
+      to: [{phoneNumber: ENV['receiver']}],
+      from: {phoneNumber: ENV['username']},
+      text: 'Hello world'
+    })
+    assert_not_equal nil, r
+    assert_equal 'SMS', JSON.parse(r.body)['type']
+
+    # put
+
+    # delete
+  end
 end

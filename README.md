@@ -41,6 +41,6 @@ MIT
 
 ## Todo
 
-- unit tests
 - Travis CI
 - code coverage
+- PubNub subscription
