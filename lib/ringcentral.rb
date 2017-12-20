@@ -38,24 +38,46 @@ class RingCentral
 
   def authorize(username = nil, extension = nil, password = nil, auth_code = nil, redirect_uri = nil)
     if auth_code
-      # todo: authorization code flow
+      payload = {
+        'grant_type': 'authorization_code',
+        'code': auth_code,
+        'redirect_uri': redirect_uri,
+      }
     else
-      # todo: password flow
+      payload = {
+        'grant_type': 'password',
+        'username': username,
+        'extension': extension,
+        'password': password,
+      }
     end
+    r = post('/restapi/oauth/token', payload: payload)
+    @token = JSON.parse(r.body)
+    r
   end
 
   def refresh
     return if @token == nil
-    # todo: refresh token
+    payload = {
+      'grant_type': 'refresh_token',
+      'refresh_token': @token.refresh_token
+    }
+    @token = nil
+    r = post('/restapi/oauth/token', payload: payload)
+    @token = JSON.parse(r.body)
+    r
   end
 
   def revoke
     return if @token == nil
-    # todo: revoke token
+    payload = {
+      token: @token.access_token
+    }
+    @token = nil
+    post('/restapi/oauth/revoke', payload: payload)
   end
 
   def authorize_uri(redirect_uri, state = '')
-    # todo: construct authorize_uri
     uri = Addressable::URI.parse(@server) + '/restapi/oauth/authorize'
     uri.query_values = {
       'response_type': 'code',
