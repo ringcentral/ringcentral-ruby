@@ -1,6 +1,6 @@
 require 'base64'
 require 'addressable/uri'
-# require 'subscription'
+require 'subscription'
 require 'rest-client'
 require 'json'
 require 'concurrent'

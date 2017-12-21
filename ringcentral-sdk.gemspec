@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency('rest-client', '~> 2.0', '>= 2.0.2')
   gem.add_dependency('addressable', '~> 2.5', '>= 2.5.2')
   gem.add_dependency('concurrent-ruby', '~> 1.0', '>= 1.0.2')
+  gem.add_dependency('pubnub', '~> 4.0', '>= 4.0.27')
 end
