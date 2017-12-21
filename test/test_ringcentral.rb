@@ -1,8 +1,8 @@
-require 'test/unit'
+require "minitest/autorun"
 require 'ringcentral'
 require 'dotenv'
 
-class RingCentralTest < Test::Unit::TestCase
+class RingCentralTest < Minitest::Test
   def test_class_variables
     assert_equal 'https://platform.devtest.ringcentral.com', RingCentral.SANDBOX_SERVER
     assert_equal 'https://platform.ringcentral.com', RingCentral.PRODUCTION_SERVER
@@ -24,19 +24,19 @@ class RingCentralTest < Test::Unit::TestCase
   def test_password_flow
     Dotenv.load
     rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
-    assert_equal nil, rc.token
+    assert_nil rc.token
 
     # create token
     rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
-    assert_not_equal nil, rc.token
+    refute_nil rc.token
 
     # refresh token
     rc.refresh
-    assert_not_equal nil, rc.token
+    refute_nil rc.token
 
     # revoke token
     rc.revoke
-    assert_equal nil, rc.token
+    assert_nil rc.token
   end
 
   def test_http_methods
@@ -46,7 +46,7 @@ class RingCentralTest < Test::Unit::TestCase
 
     # get
     r = rc.get('/restapi/v1.0/account/~/extension/~')
-    assert_not_equal nil, r
+    refute_nil r
     assert_equal '101', JSON.parse(r.body)['extensionNumber']
 
     # post
@@ -55,26 +55,26 @@ class RingCentralTest < Test::Unit::TestCase
       from: {phoneNumber: ENV['username']},
       text: 'Hello world'
     })
-    assert_not_equal nil, r
+    refute_nil r
     message = JSON.parse(r.body)
     assert_equal 'SMS', message['type']
     messageUrl = "/restapi/v1.0/account/~/extension/~/message-store/#{message['id']}"
 
     # put
     r = rc.put(messageUrl, payload: { readStatus: 'Unread' })
-    assert_not_equal nil, r
+    refute_nil r
     message = JSON.parse(r.body)
     assert_equal 'Unread', message['readStatus']
     r = rc.put(messageUrl, payload: { readStatus: 'Read' })
-    assert_not_equal nil, r
+    refute_nil r
     message = JSON.parse(r.body)
     assert_equal 'Read', message['readStatus']
 
     # delete
     r = rc.delete(messageUrl)
-    assert_not_equal nil, r
+    refute_nil r
     r = rc.get(messageUrl)
-    assert_not_equal nil, r
+    refute_nil r
     message = JSON.parse(r.body)
     assert_equal 'Deleted', message['availability']
   end
