@@ -1,9 +1,13 @@
-# RingCentral Ruby SDK
+# ringcentral-ruby
+
+Ruby SDK for RingCentral.
 
 
 ## Installation
 
-Add `gem 'ringcentral-sdk'` to `Gemfile` and run `bundle install`.
+```
+gem install ringcentral-sdk
+```
 
 
 ## Documentation
@@ -21,8 +25,8 @@ rc.authorize(username: ENV['username'], extension: ENV['extension'], password: E
 
 # get
 r = rc.get('/restapi/v1.0/account/~/extension/~')
-assert_not_equal nil, r
-assert_equal '101', JSON.parse(r.body)['extensionNumber']
+expect(r).not_to be_nil
+expect('101').to eq(JSON.parse(r.body)['extensionNumber'])
 ```
 
 
