@@ -33,9 +33,7 @@ class RingCentral
       @timer = nil
     end
     if @auto_refresh && value != nil
-      @timer = Concurrent::TimerTask.new(execution_interval: value['expires_in'] - 120, timeout_interval: 60) do
-        self.refresh
-      end
+      @timer = Concurrent::TimerTask.new(execution_interval: value['expires_in'] - 120, timeout_interval: 60) { self.refresh }
       @timer.execute
     end
   end
@@ -73,9 +71,7 @@ class RingCentral
 
   def revoke
     return if @token == nil
-    payload = {
-      token: @token['access_token']
-    }
+    payload = { token: @token['access_token'] }
     self.token = nil
     self.post('/restapi/oauth/revoke', payload: payload)
   end
@@ -118,8 +114,7 @@ class RingCentral
     end
 
     def autorization_header
-      return "Bearer #{@token['access_token']}" if @token != nil
-      return "Basic #{basic_key}"
+      @token != nil ? "Bearer #{@token['access_token']}" : "Basic #{basic_key}"
     end
 
     def request(method, endpoint, params: nil, payload: nil, files: nil)
