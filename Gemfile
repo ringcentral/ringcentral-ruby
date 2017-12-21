@@ -8,4 +8,5 @@ gem 'pubnub'
 group :test do
   gem 'dotenv'
   gem 'rspec'
+  gem 'simplecov'
 end

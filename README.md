@@ -58,7 +58,5 @@ MIT
 
 ## Todo
 
-- Travis CI
-- Code coverage
 - Batch requests
 - Fax & SMS
