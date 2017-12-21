@@ -2,5 +2,4 @@ language: ruby
 rvm:
   - 2.4
   - 2.3
-before_script: bundle install
-script: rspec
+script: bundle exec rspec
