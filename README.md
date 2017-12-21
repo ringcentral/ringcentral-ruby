@@ -63,4 +63,4 @@ MIT
 ## Todo
 
 - Batch requests
-- Fax & SMS
+- Samples for Fax & MMS
