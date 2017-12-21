@@ -103,8 +103,8 @@ class RingCentral
     request(:delete, endpoint, params: params)
   end
 
-  def subscription(event_filters, callback)
-    Subscription.new(event_filters, callback)
+  def subscription(events, callback)
+    Subscription.new(self, events, callback)
   end
 
   private

@@ -5,7 +5,7 @@ class Subscription
   attr_accessor :events
 
   def initialize(ringcentral, events, message_callback, status_callback = nil, presence_callback = nil)
-    @rc = rc
+    @rc = ringcentral
     @events = events
     @callback = Pubnub::SubscribeCallback.new(
       message: ->(envelope) {
