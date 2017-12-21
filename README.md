@@ -26,7 +26,7 @@ assert_equal '101', JSON.parse(r.body)['extensionNumber']
 ```
 
 
-For more sample code, please refer to the [test cases](/test).
+For more sample code, please refer to the [test cases](/spec).
 
 
 ## How to test
@@ -44,7 +44,7 @@ password=password
 receiver=number-to-receiver-sms
 ```
 
-Run `rake test`
+Run `rspec`
 
 
 ## License
@@ -55,5 +55,6 @@ MIT
 ## Todo
 
 - Travis CI
-- code coverage
-- PubNub subscription
+- Code coverage
+- Batch requests
+- Fax & SMS
