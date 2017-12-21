@@ -1,5 +1,7 @@
 require 'pubnub'
 require 'concurrent'
+require 'openssl'
+require 'base64'
 
 class Subscription
   attr_accessor :events
@@ -9,8 +11,13 @@ class Subscription
     @events = events
     @callback = Pubnub::SubscribeCallback.new(
       message: lambda { |envelope|
-        # todo: decrypt the message
-        message_callback.call(envelope)
+        message = envelope.result[:data][:message]
+        cipher = OpenSSL::Cipher::AES.new(128, :ECB)
+        cipher.decrypt
+        cipher.key = Base64.decode64(@subscription['deliveryMode']['encryptionKey'])
+        ciphertext = Base64.decode64(message)
+        plaintext = cipher.update(ciphertext) + cipher.final
+        message_callback.call(JSON.parse(plaintext))
       },
       presence: lambda { |envelope|
         presence_callback != nil && presence_callback.call(envelope)
