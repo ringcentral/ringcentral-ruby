@@ -1,8 +1,9 @@
 require 'base64'
 require 'addressable/uri'
-require 'subscription'
+# require 'subscription'
 require 'rest-client'
 require 'json'
+require 'concurrent'
 
 class RingCentral
   def self.SANDBOX_SERVER
@@ -13,7 +14,7 @@ class RingCentral
     'https://platform.ringcentral.com'
   end
 
-  attr_reader :app_key, :app_secret, :server
+  attr_reader :app_key, :app_secret, :server, :token
   attr_accessor :auto_refresh
 
   def initialize(app_key, app_secret, server)
@@ -22,10 +23,7 @@ class RingCentral
     @server = server
     @auto_refresh = true
     @token = nil
-  end
-
-  def token
-    @token
+    @timer = nil
   end
 
   def token=(value)
@@ -35,8 +33,8 @@ class RingCentral
       @timer = nil
     end
     if @auto_refresh && value != nil
-      @timer = Concurrent::TimerTask.new(execution_interval: value.expires_in - 120, timeout_interval: 60) do
-        refresh
+      @timer = Concurrent::TimerTask.new(execution_interval: value['expires_in'] - 120, timeout_interval: 60) do
+        self.refresh
       end
       @timer.execute
     end
@@ -57,9 +55,9 @@ class RingCentral
         password: password,
       }
     end
-    @token = nil
-    r = post('/restapi/oauth/token', payload: payload)
-    @token = JSON.parse(r.body)
+    self.token = nil
+    r = self.post('/restapi/oauth/token', payload: payload)
+    self.token = JSON.parse(r.body)
   end
 
   def refresh
@@ -68,9 +66,9 @@ class RingCentral
       grant_type: 'refresh_token',
       refresh_token: @token['refresh_token']
     }
-    @token = nil
-    r = post('/restapi/oauth/token', payload: payload)
-    @token = JSON.parse(r.body)
+    self.token = nil
+    r = self.post('/restapi/oauth/token', payload: payload)
+    self.token = JSON.parse(r.body)
   end
 
   def revoke
@@ -78,8 +76,8 @@ class RingCentral
     payload = {
       token: @token['access_token']
     }
-    @token = nil
-    post('/restapi/oauth/revoke', payload: payload)
+    self.token = nil
+    self.post('/restapi/oauth/revoke', payload: payload)
   end
 
   def authorize_uri(redirect_uri, state = '')
@@ -115,26 +113,26 @@ class RingCentral
 
   private
 
-  def basic_key
-    Base64.encode64("#{@app_key}:#{@app_secret}").gsub(/\s/, '')
-  end
-
-  def autorization_header
-    return "Bearer #{@token['access_token']}" if @token != nil
-    return "Basic #{basic_key}"
-  end
-
-  def request(method, endpoint, params: nil, payload: nil, files: nil)
-    url = (Addressable::URI.parse(@server) + endpoint).to_s
-    user_agent_header = "ringcentral/ringcentral-ruby Ruby #{RUBY_VERSION} #{RUBY_PLATFORM}"
-    headers = {
-      'Authorization': autorization_header,
-      'RC-User-Agent': user_agent_header
-    }
-    if payload != nil && @token != nil
-      headers['Content-Type'] = 'application/json'
-      payload = payload.to_json
+    def basic_key
+      Base64.encode64("#{@app_key}:#{@app_secret}").gsub(/\s/, '')
     end
-    RestClient::Request.execute(method: method.to_sym, url: url, params: params, payload: payload, headers: headers, files: files)
-  end
+
+    def autorization_header
+      return "Bearer #{@token['access_token']}" if @token != nil
+      return "Basic #{basic_key}"
+    end
+
+    def request(method, endpoint, params: nil, payload: nil, files: nil)
+      url = (Addressable::URI.parse(@server) + endpoint).to_s
+      user_agent_header = "ringcentral/ringcentral-ruby Ruby #{RUBY_VERSION} #{RUBY_PLATFORM}"
+      headers = {
+        'Authorization': autorization_header,
+        'RC-User-Agent': user_agent_header
+      }
+      if payload != nil && @token != nil
+        headers['Content-Type'] = 'application/json'
+        payload = payload.to_json
+      end
+      RestClient::Request.execute(method: method.to_sym, url: url, params: params, payload: payload, headers: headers, files: files)
+    end
 end
