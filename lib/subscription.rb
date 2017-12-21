@@ -8,15 +8,20 @@ class Subscription
     @rc = ringcentral
     @events = events
     @callback = Pubnub::SubscribeCallback.new(
-      message: ->(envelope) {
+      message: lambda { |envelope|
         # todo: decrypt the message
-        message_callback(envelope)
+        message_callback.call(envelope)
       },
-      presence: ->(envelope) { presence_callback != nil && presence_callback(presence) },
-      status: ->(envelope) { status_callback != nil && status_callback(envelope) }
+      presence: lambda { |envelope|
+        presence_callback != nil && presence_callback.call(envelope)
+      },
+      status: lambda { |envelope|
+        status_callback != nil && status_callback.call(envelope)
+      }
     )
     @subscription = nil
     @timer = nil
+    @pubnub = nil
   end
 
   def subscription=(value)
@@ -38,7 +43,7 @@ class Subscription
     self.subscription = JSON.parse(r.body)
     @pubnub = Pubnub.new(subscribe_key: @subscription['deliveryMode']['subscriberKey'])
     @pubnub.add_listener(callback: @callback)
-    @pubnub.subscribe(channel: @subscription['deliveryMode']['address'])
+    @pubnub.subscribe(channels: @subscription['deliveryMode']['address'])
   end
 
   def refresh
