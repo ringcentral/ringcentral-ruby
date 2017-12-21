@@ -5,11 +5,11 @@ Gem::Specification.new do |gem|
   gem.email         = ['tyler.liu@ringcentral.com']
   gem.description   = 'Ruby SDK for you to access RingCentral platform API.'
   gem.summary       = 'RingCentral Ruby SDK.'
-  gem.homepage      = 'https://github.com/tylerlong/ringcentral-ruby'
+  gem.homepage      = 'https://github.com/ringcentral/ringcentral-ruby'
   gem.license       = 'MIT'
 
   gem.require_paths = ['lib']
-  gem.files         = %w(Rakefile README.md ringcentral-sdk.gemspec)
+  gem.files         = %w(README.md ringcentral-sdk.gemspec)
   gem.files        += Dir['lib/**/*.rb']
   gem.test_files    = Dir['spec/**/*.rb']
 
