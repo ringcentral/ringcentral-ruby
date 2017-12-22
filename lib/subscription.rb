@@ -49,7 +49,7 @@ class Subscription
     r = @rc.post('/restapi/v1.0/subscription', payload: request_body)
     self.subscription = JSON.parse(r.body)
     @pubnub = Pubnub.new(subscribe_key: @subscription['deliveryMode']['subscriberKey'])
-    @pubnub.add_listener(callback: @callback)
+    @pubnub.add_listener(name: 'default', callback: @callback)
     @pubnub.subscribe(channels: @subscription['deliveryMode']['address'])
   end
 
@@ -62,9 +62,9 @@ class Subscription
   def revoke
     return if @subscription == nil
     @pubnub.unsubscribe(channel: @subscription['deliveryMode']['address'])
-    @pubnub.remove_listener(@callback)
+    @pubnub.remove_listener(name: 'default')
     @pubnub = nil
-    rc.delete("/restapi/v1.0/subscription/#{@subscription['id']}")
+    @rc.delete("/restapi/v1.0/subscription/#{@subscription['id']}")
     self.subscription = nil
   end
 

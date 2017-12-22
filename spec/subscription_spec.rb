@@ -2,23 +2,30 @@ require 'ringcentral'
 require 'dotenv'
 require 'rspec'
 
+Dotenv.load
+$rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
+$rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
+
+def createSubscription(callback)
+  events = [
+    '/restapi/v1.0/account/~/extension/~/message-store',
+  ]
+  subscription = $rc.subscription(events, lambda { |message|
+    callback.call(message)
+  })
+  subscription.subscribe()
+  return subscription
+end
+
 RSpec.describe 'Subscription' do
   describe 'subscription' do
     it 'receives message notification' do
-      Dotenv.load
-      rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
-      rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
-
-      events = [
-        '/restapi/v1.0/account/~/extension/~/message-store',
-      ]
       count = 0
-      subscription = rc.subscription(events, lambda { |message|
+      createSubscription(lambda { |message|
         count += 1
       })
-      subscription.subscribe()
 
-      rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
+      $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
         to: [{phoneNumber: ENV['receiver']}],
         from: {phoneNumber: ENV['username']},
         text: 'Hello world'
@@ -26,6 +33,42 @@ RSpec.describe 'Subscription' do
       sleep(20)
 
       expect(count).to be > 0
+    end
+
+    it 'refresh' do
+      count = 0
+      subscription = createSubscription(lambda { |message|
+        count += 1
+      })
+
+      subscription.refresh()
+
+      $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
+        to: [{phoneNumber: ENV['receiver']}],
+        from: {phoneNumber: ENV['username']},
+        text: 'Hello world'
+      })
+      sleep(20)
+
+      expect(count).to be > 0
+    end
+
+    it 'revoke' do
+      count = 0
+      subscription = createSubscription(lambda { |message|
+        count += 1
+      })
+
+      subscription.revoke()
+
+      $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
+        to: [{phoneNumber: ENV['receiver']}],
+        from: {phoneNumber: ENV['username']},
+        text: 'Hello world'
+      })
+      sleep(20)
+
+      expect(count).to eq(0)
     end
   end
 end
