@@ -17,4 +17,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency('addressable', '~> 2.5', '>= 2.5.2')
   gem.add_dependency('concurrent-ruby', '~> 1.0', '>= 1.0.2')
   gem.add_dependency('pubnub', '~> 4.0', '>= 4.0.27')
+  gem.add_dependency('faraday', '~> 0.13', '>= 0.13.1')
 end

@@ -4,6 +4,7 @@ require 'subscription'
 require 'rest-client'
 require 'json'
 require 'concurrent'
+require 'faraday'
 
 class RingCentral
   def self.SANDBOX_SERVER
@@ -24,6 +25,7 @@ class RingCentral
     @auto_refresh = true
     @token = nil
     @timer = nil
+    @faraday = Faraday.new(url: server)
   end
 
   def token=(value)
@@ -87,8 +89,12 @@ class RingCentral
     uri.to_s
   end
 
-  def get(endpoint, params = nil)
-    request(:get, endpoint, params: params)
+  def get(endpoint, params = {})
+    @faraday.get do |req|
+      req.url endpoint
+      req.params = params
+      req.headers = headers
+    end
   end
 
   def post(endpoint, payload: nil, params: nil, files: nil)
@@ -99,8 +105,12 @@ class RingCentral
     request(:put, endpoint, payload: payload, params: params, files: files)
   end
 
-  def delete(endpoint, params = nil)
-    request(:delete, endpoint, params: params)
+  def delete(endpoint, params = {})
+    @faraday.delete do |req|
+      req.url endpoint
+      req.params = params
+      req.headers = headers
+    end
   end
 
   def subscription(events, callback)
@@ -115,6 +125,15 @@ class RingCentral
 
     def autorization_header
       @token != nil ? "Bearer #{@token['access_token']}" : "Basic #{basic_key}"
+    end
+
+    def headers
+      user_agent_header = "ringcentral/ringcentral-ruby Ruby #{RUBY_VERSION} #{RUBY_PLATFORM}"
+      {
+        'Authorization': autorization_header,
+        'RC-User-Agent': user_agent_header,
+        'User-Agent': user_agent_header,
+      }
     end
 
     def request(method, endpoint, params: nil, payload: nil, files: nil)

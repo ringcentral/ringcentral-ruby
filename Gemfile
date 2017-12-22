@@ -4,6 +4,7 @@ gem 'rest-client'
 gem 'addressable'
 gem 'concurrent-ruby'
 gem 'pubnub'
+gem 'faraday'
 
 group :test do
   gem 'dotenv'

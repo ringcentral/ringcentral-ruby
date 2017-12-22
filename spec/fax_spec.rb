@@ -1,3 +1,6 @@
+require 'dotenv'
+require 'ringcentral'
+
 RSpec.describe 'Fax' do
   describe 'send fax' do
     Dotenv.load
