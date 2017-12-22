@@ -1,7 +1,6 @@
 require 'base64'
 require 'addressable/uri'
 require 'subscription'
-require 'rest-client'
 require 'json'
 require 'concurrent'
 require 'faraday'
@@ -97,12 +96,27 @@ class RingCentral
     end
   end
 
-  def post(endpoint, payload: nil, params: nil, files: nil)
-    request(:post, endpoint, payload: payload, params: params, files: files)
+  def post(endpoint, payload: nil, params: {}, files: nil)
+    @faraday.post do |req|
+      req.url endpoint
+      req.params = params
+      if payload != nil && @token != nil
+        req.headers = headers.merge({ 'Content-Type': 'application/json' })
+        req.body = payload.to_json
+      else
+        req.headers = headers
+        req.body = payload
+      end
+    end
   end
 
-  def put(endpoint, payload: nil, params: nil, files: nil)
-    request(:put, endpoint, payload: payload, params: params, files: files)
+  def put(endpoint, payload: nil, params: {}, files: nil)
+    @faraday.put do |req|
+      req.url endpoint
+      req.params = params
+      req.headers = headers.merge({ 'Content-Type': 'application/json' })
+      req.body = payload.to_json
+    end
   end
 
   def delete(endpoint, params = {})
@@ -134,19 +148,5 @@ class RingCentral
         'RC-User-Agent': user_agent_header,
         'User-Agent': user_agent_header,
       }
-    end
-
-    def request(method, endpoint, params: nil, payload: nil, files: nil)
-      url = (Addressable::URI.parse(@server) + endpoint).to_s
-      user_agent_header = "ringcentral/ringcentral-ruby Ruby #{RUBY_VERSION} #{RUBY_PLATFORM}"
-      headers = {
-        'Authorization': autorization_header,
-        'RC-User-Agent': user_agent_header
-      }
-      if payload != nil && @token != nil
-        headers['Content-Type'] = 'application/json'
-        payload = payload.to_json
-      end
-      RestClient::Request.execute(method: method.to_sym, url: url, params: params, payload: payload, headers: headers, files: files)
     end
 end
