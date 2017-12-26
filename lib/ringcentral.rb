@@ -104,7 +104,12 @@ class RingCentral
     @faraday.post do |req|
       req.url endpoint
       req.params = params
-      if payload != nil && @token != nil
+      if files != nil && files.size > 0
+        req.headers = headers
+        req.body = (payload || {}).merge({
+          attachment: Faraday::UploadIO.new(files[0][:path], files[0][:content_type])
+        })
+      elsif payload != nil && @token != nil
         req.headers = headers.merge({ 'Content-Type': 'application/json' })
         req.body = payload.to_json
       else
@@ -129,18 +134,6 @@ class RingCentral
       req.params = params
       req.headers = headers
     end
-  end
-
-  def upload()
-    r = @faraday.post do |req|
-      req.url '/restapi/v1.0/account/~/extension/~/fax'
-      req.headers = headers
-      req.body = {
-        to: 16506417402,
-        attachment: Faraday::UploadIO.new('./spec/test.png', 'image/png')
-      }
-    end
-    r
   end
 
   def subscription(events, callback)
