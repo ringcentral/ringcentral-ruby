@@ -140,6 +140,7 @@ class RingCentral
         attachment: Faraday::UploadIO.new('./spec/test.png', 'image/png')
       }
     end
+    r
   end
 
   def subscription(events, callback)
