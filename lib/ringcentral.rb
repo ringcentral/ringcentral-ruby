@@ -24,7 +24,11 @@ class RingCentral
     @auto_refresh = true
     @token = nil
     @timer = nil
-    @faraday = Faraday.new(url: server)
+    @faraday = Faraday.new(url: server) do |faraday|
+      faraday.request :multipart
+      faraday.request :url_encoded
+      faraday.adapter Faraday.default_adapter
+    end
   end
 
   def token=(value)
