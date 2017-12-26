@@ -131,6 +131,17 @@ class RingCentral
     end
   end
 
+  def upload()
+    r = @faraday.post do |req|
+      req.url '/restapi/v1.0/account/~/extension/~/fax'
+      req.headers = headers
+      req.body = {
+        to: 16506417402,
+        attachment: Faraday::UploadIO.new('./spec/test.png', 'image/png')
+      }
+    end
+  end
+
   def subscription(events, callback)
     Subscription.new(self, events, callback)
   end

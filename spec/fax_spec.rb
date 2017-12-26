@@ -7,5 +7,6 @@ RSpec.describe 'Fax' do
     rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
     rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
     # todo: send fax
+    rc.upload
   end
 end
