@@ -1,23 +1,26 @@
 require 'dotenv'
 require 'ringcentral'
 
-RSpec.describe 'Fax' do
-  describe 'send fax' do
-    it 'should send a fax' do
+RSpec.describe 'MMS' do
+  describe 'send MMS' do
+    it 'should send an MMS' do
       Dotenv.load
       rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
       rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
 
-      r = rc.post('/restapi/v1.0/account/~/extension/~/fax',
-        payload: { to: [{ phoneNumber: ENV['receiver'] }] },
+      r = rc.post('/restapi/v1.0/account/~/extension/~/sms',
+        payload: {
+          to: [{ phoneNumber: ENV['receiver'] }],
+          from: { phoneNumber: ENV['username'] },
+          text: 'hello world'
+        },
         files: [
-          'spec/test.txt;type=text/plain',
           'spec/test.png;type=image/png'
         ]
       )
       expect(r).not_to be_nil
       message = JSON.parse(r.body)
-      expect('Fax').to eq(message['type'])
+      expect('SMS').to eq(message['type'])
     end
   end
 end
