@@ -9,8 +9,11 @@ RSpec.describe 'Fax' do
       rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
 
       r = rc.post('/restapi/v1.0/account/~/extension/~/fax',
-        payload: { to: ENV['receiver'] },
-        files:[{ path: './spec/test.png', content_type: 'image/png' }]
+        payload: { to: [{ phoneNumber: 16506417402 }] },
+        files: [
+          'spec/test.txt;type=text/plain',
+          'spec/test.png;type=image/png'
+        ]
       )
       expect(r).not_to be_nil
       message = JSON.parse(r.body)

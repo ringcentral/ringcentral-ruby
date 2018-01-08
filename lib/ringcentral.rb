@@ -4,6 +4,17 @@ require 'subscription'
 require 'json'
 require 'concurrent'
 require 'faraday'
+require 'tmpdir'
+
+class MockResponse
+  def initialize(body)
+    @body = body
+  end
+
+  def body
+    @body
+  end
+end
 
 class RingCentral
   def self.SANDBOX_SERVER
@@ -101,15 +112,20 @@ class RingCentral
   end
 
   def post(endpoint, payload: nil, params: {}, files: nil)
+    if files != nil && files.size > 0 # send fax
+      cmd = %{curl --header "Accept: application/json" --header "Authorization: Bearer #{@token['access_token']}"}
+      File.write("#{Dir.tmpdir()}/request.json", JSON.generate(payload))
+      cmd += %{ -F "request=@#{Dir.tmpdir()}/request.json;type=application/json"}
+      files.each do |file|
+        cmd += %{ -F "attachment=@#{file}"}
+      end
+      cmd += %{ "#{Addressable::URI.parse(@server) + endpoint}"}
+      return MockResponse.new(`#{cmd}`)
+    end
     @faraday.post do |req|
       req.url endpoint
       req.params = params
-      if files != nil && files.size > 0
-        req.headers = headers
-        req.body = (payload || {}).merge({
-          attachment: Faraday::UploadIO.new(files[0][:path], files[0][:content_type])
-        })
-      elsif payload != nil && @token != nil
+      if payload != nil && @token != nil
         req.headers = headers.merge({ 'Content-Type': 'application/json' })
         req.body = payload.to_json
       else
