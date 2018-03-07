@@ -3,7 +3,7 @@ require 'concurrent'
 require 'openssl'
 require 'base64'
 
-class Subscription
+class PubNub
   attr_accessor :events
 
   def initialize(ringcentral, events, message_callback, status_callback = nil, presence_callback = nil)

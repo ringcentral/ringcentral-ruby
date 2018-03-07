@@ -1,4 +1,5 @@
 require 'ringcentral'
+require 'subscription'
 require 'dotenv'
 require 'rspec'
 
@@ -10,7 +11,7 @@ def createSubscription(callback)
   events = [
     '/restapi/v1.0/account/~/extension/~/message-store',
   ]
-  subscription = $rc.subscription(events, lambda { |message|
+  subscription = PubNub.new($rc, events, lambda { |message|
     callback.call(message)
   })
   subscription.subscribe()

@@ -1,6 +1,5 @@
 require 'base64'
 require 'addressable/uri'
-require 'subscription'
 require 'json'
 require 'concurrent'
 require 'faraday'
@@ -150,10 +149,6 @@ class RingCentral
       req.params = params
       req.headers = headers
     end
-  end
-
-  def subscription(events, callback)
-    Subscription.new(self, events, callback)
   end
 
   private
