@@ -80,7 +80,7 @@ def createSubscription(callback)
     events = [
         '/restapi/v1.0/account/~/extension/~/message-store',
     ]
-    subscription = $rc.subscription(events, lambda { |message|
+    subscription = rc.subscription(events, lambda { |message|
         callback.call(message)
     })
     subscription.subscribe()
