@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name          = 'ringcentral-sdk'
-  gem.version       = '0.5.0'
+  gem.version       = '0.6.0'
   gem.authors       = ['Tyler Liu']
   gem.email         = ['tyler.liu@ringcentral.com']
   gem.description   = 'Ruby SDK for you to access RingCentral platform API.'
@@ -16,5 +16,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency('addressable', '~> 2.5', '>= 2.5.2')
   gem.add_dependency('concurrent-ruby', '~> 1.0', '>= 1.0.2')
   gem.add_dependency('pubnub', '~> 4.0', '>= 4.0.27')
-  gem.add_dependency('faraday', '~> 0.13', '>= 0.13.1')
+  gem.add_dependency('faraday', '~> 0.10', '>= 0.10.0')
 end
