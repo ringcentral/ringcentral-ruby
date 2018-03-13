@@ -143,6 +143,15 @@ class RingCentral
     end
   end
 
+  def patch(endpoint, payload: nil, params: {}, files: nil)
+    @faraday.patch do |req|
+      req.url endpoint
+      req.params = params
+      req.headers = headers.merge({ 'Content-Type': 'application/json' })
+      req.body = payload.to_json
+    end
+  end
+
   def delete(endpoint, params = {})
     @faraday.delete do |req|
       req.url endpoint

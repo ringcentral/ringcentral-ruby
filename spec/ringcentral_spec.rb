@@ -69,6 +69,8 @@ RSpec.describe 'RingCentral' do
       message = JSON.parse(r.body)
       expect('Read').to eq(message['readStatus'])
 
+      # todo: test patch
+
       # delete
       r = rc.delete(messageUrl)
       expect(r).not_to be_nil
