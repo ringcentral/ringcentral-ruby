@@ -5,7 +5,7 @@ RSpec.describe 'MMS' do
   describe 'send MMS' do
     it 'should send an MMS' do
       Dotenv.load
-      rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
+      rc = RingCentral.new(ENV['clientId'], ENV['clientSecret'], ENV['server'])
       rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
 
       r = rc.post('/restapi/v1.0/account/~/extension/~/sms',

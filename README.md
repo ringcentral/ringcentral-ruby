@@ -23,7 +23,7 @@ https://developer.ringcentral.com/api-docs/latest/index.html
 ```ruby
 require 'ringcentral'
 
-rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
+rc = RingCentral.new(ENV['clientId'], ENV['clientSecret'], ENV['server'])
 rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
 
 # get
@@ -103,8 +103,8 @@ Create `.env` file with the following content:
 ```
 production=false
 server=https://platform.devtest.ringcentral.com
-appKey=appKey
-appSecret=appSecret
+clientId=clientId
+clientSecret=clientSecret
 username=username
 extension=extension
 password=password

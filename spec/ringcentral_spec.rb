@@ -22,7 +22,7 @@ RSpec.describe 'RingCentral' do
 
     it 'test_password_flow' do
       Dotenv.load
-      rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
+      rc = RingCentral.new(ENV['clientId'], ENV['clientSecret'], ENV['server'])
       expect(rc.token).to be_nil
 
       # create token
@@ -40,7 +40,7 @@ RSpec.describe 'RingCentral' do
 
     it 'test_http_methods' do
       Dotenv.load
-      rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
+      rc = RingCentral.new(ENV['clientId'], ENV['clientSecret'], ENV['server'])
       rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
 
       # get

@@ -4,7 +4,7 @@ require 'dotenv'
 require 'rspec'
 
 Dotenv.load
-$rc = RingCentral.new(ENV['appKey'], ENV['appSecret'], ENV['server'])
+$rc = RingCentral.new(ENV['clientId'], ENV['clientSecret'], ENV['server'])
 $rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
 
 def createSubscription(callback)
