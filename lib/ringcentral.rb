@@ -111,20 +111,19 @@ class RingCentral
   end
 
   def post(endpoint, payload: nil, params: {}, files: nil)
-    if files != nil && files.size > 0 # send fax
-      cmd = %{curl --header "Accept: application/json" --header "Authorization: Bearer #{@token['access_token']}"}
-      File.write("#{Dir.tmpdir()}/request.json", JSON.generate(payload))
-      cmd += %{ -F "request=@#{Dir.tmpdir()}/request.json;type=application/json"}
-      files.each do |file|
-        cmd += %{ -F "attachment=@#{file}"}
-      end
-      cmd += %{ "#{Addressable::URI.parse(@server) + endpoint}"}
-      return MockResponse.new(`#{cmd}`)
-    end
     @faraday.post do |req|
       req.url endpoint
       req.params = params
-      if payload != nil && @token != nil
+      if files != nil && files.size > 0 # send fax
+        payload = {}
+        payload[:json] = Faraday::UploadIO.new(files[0][0], files[0][1])
+        payload[:attachment] = [
+          Faraday::UploadIO.new(files[1][0], files[1][1]),
+          Faraday::UploadIO.new(files[2][0], files[2][1])
+        ]
+        req.headers = headers
+        req.body = payload
+      elsif payload != nil && @token != nil
         req.headers = headers.merge({ 'Content-Type': 'application/json' })
         req.body = payload.to_json
       else
