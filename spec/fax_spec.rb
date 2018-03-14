@@ -10,7 +10,6 @@ RSpec.describe 'Fax' do
       r = rc.post('/restapi/v1.0/account/~/extension/~/fax',
         payload: { to: [{ phoneNumber: ENV['receiver'] }] },
         files: [
-          ['spec/request.json', 'application/json'],
           ['spec/test.txt', 'text/plain'],
           ['spec/test.png', 'image/png']
         ]

@@ -116,11 +116,8 @@ class RingCentral
       req.params = params
       if files != nil && files.size > 0 # send fax
         payload = {}
-        payload[:json] = Faraday::UploadIO.new(files[0][0], files[0][1])
-        payload[:attachment] = [
-          Faraday::UploadIO.new(files[1][0], files[1][1]),
-          Faraday::UploadIO.new(files[2][0], files[2][1])
-        ]
+        payload[:json] = Faraday::UploadIO.new('spec/request.json', 'application/json')
+        payload[:attachment] = files.map{ |file| Faraday::UploadIO.new(file[0], file[1]) }
         req.headers = headers
         req.body = payload
       elsif payload != nil && @token != nil
