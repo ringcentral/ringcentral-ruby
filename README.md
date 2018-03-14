@@ -48,10 +48,10 @@ r = rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
 
 ```ruby
 rc.post('/restapi/v1.0/account/~/extension/~/fax',
-    payload: { to: [{ phoneNumber: ENV['receiver'] }] },
+payload: { to: [{ phoneNumber: ENV['receiver'] }] },
     files: [
-        'spec/test.txt;type=text/plain',
-        'spec/test.png;type=image/png'
+        ['spec/test.txt', 'text/plain'],
+        ['spec/test.png', 'image/png']
     ]
 )
 ```
@@ -67,7 +67,7 @@ r = rc.post('/restapi/v1.0/account/~/extension/~/sms',
         text: 'hello world'
     },
     files: [
-        'spec/test.png;type=image/png'
+        ['spec/test.png', 'image/png']
     ]
 )
 ```

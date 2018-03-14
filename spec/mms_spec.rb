@@ -15,7 +15,7 @@ RSpec.describe 'MMS' do
           text: 'hello world'
         },
         files: [
-          'spec/test.png;type=image/png'
+          ['spec/test.png', 'image/png']
         ]
       )
       expect(r).not_to be_nil
