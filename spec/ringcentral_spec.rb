@@ -12,7 +12,7 @@ RSpec.describe 'RingCentral' do
       expect('app_key').to eq(rc.app_key)
       expect('app_secret').to eq(rc.app_secret)
       expect('https://platform.devtest.ringcentral.com').to eq(rc.server)
-      expect(true).to eq(rc.auto_refresh)
+      expect(false).to eq(rc.auto_refresh)
     end
 
     it 'test_authorize_uri' do

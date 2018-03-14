@@ -5,16 +5,6 @@ require 'concurrent'
 require 'faraday'
 require 'tmpdir'
 
-class MockResponse
-  def initialize(body)
-    @body = body
-  end
-
-  def body
-    @body
-  end
-end
-
 class RingCentral
   def self.SANDBOX_SERVER
     'https://platform.devtest.ringcentral.com'
@@ -31,7 +21,7 @@ class RingCentral
     @app_key = app_key
     @app_secret = app_secret
     @server = server
-    @auto_refresh = true
+    @auto_refresh = false
     @token = nil
     @timer = nil
     @faraday = Faraday.new(url: server) do |faraday|

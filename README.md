@@ -33,6 +33,12 @@ expect('101').to eq(JSON.parse(r.body)['extensionNumber'])
 ```
 
 
+### Token Refresh
+
+Access token expires. You need to call `rc.refresh()` before it expores.
+If you want the SDK to do auto refresh please `rc.auto_refresh = true` before authorization.
+
+
 ### Send SMS
 
 ```ruby
