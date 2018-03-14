@@ -114,7 +114,7 @@ class RingCentral
     @faraday.post do |req|
       req.url endpoint
       req.params = params
-      if files != nil && files.size > 0 # send fax
+      if files != nil && files.size > 0 # send fax or MMS
         io = StringIO.new(payload.to_json)
         payload = {}
         payload[:json] = Faraday::UploadIO.new(io, 'application/json')
