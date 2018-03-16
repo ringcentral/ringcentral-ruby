@@ -87,7 +87,7 @@ class RingCentral
       response_type: 'code',
       state: state,
       redirect_uri: redirect_uri,
-      client_id: @app_secret
+      client_id: @app_key
     }
     uri.to_s
   end
