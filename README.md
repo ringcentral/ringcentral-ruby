@@ -116,7 +116,6 @@ For more sample code, please refer to the [test cases](/spec).
 Create `.env` file with the following content:
 
 ```
-production=false
 server=https://platform.devtest.ringcentral.com
 clientId=clientId
 clientSecret=clientSecret
