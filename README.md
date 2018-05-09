@@ -32,8 +32,8 @@ https://developer.ringcentral.com/api-docs/latest/index.html
 ```ruby
 require 'ringcentral'
 
-rc = RingCentral.new(ENV['clientId'], ENV['clientSecret'], ENV['server'])
-rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
+rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
+rc.authorize(username: ENV['RINGCENTRAL_USERNAME'], extension: ENV['RINGCENTRAL_EXTENSION'], password: ENV['RINGCENTRAL_PASSWORD'])
 
 # get
 r = rc.get('/restapi/v1.0/account/~/extension/~')
@@ -52,8 +52,8 @@ If you want the SDK to do auto refresh please `rc.auto_refresh = true` before au
 
 ```ruby
 r = rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
-    to: [{phoneNumber: ENV['receiver']}],
-    from: {phoneNumber: ENV['username']},
+    to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
+    from: {phoneNumber: ENV['RINGCENTRAL_USERNAME']},
     text: 'Hello world'
 })
 ```
@@ -63,7 +63,7 @@ r = rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
 
 ```ruby
 rc.post('/restapi/v1.0/account/~/extension/~/fax',
-payload: { to: [{ phoneNumber: ENV['receiver'] }] },
+payload: { to: [{ phoneNumber: ENV['RINGCENTRAL_RECEIVER'] }] },
     files: [
         ['spec/test.txt', 'text/plain'],
         ['spec/test.png', 'image/png']
@@ -77,8 +77,8 @@ payload: { to: [{ phoneNumber: ENV['receiver'] }] },
 ```ruby
 r = rc.post('/restapi/v1.0/account/~/extension/~/sms',
     payload: {
-        to: [{ phoneNumber: ENV['receiver'] }],
-        from: { phoneNumber: ENV['username'] },
+        to: [{ phoneNumber: ENV['RINGCENTRAL_RECEIVER'] }],
+        from: { phoneNumber: ENV['RINGCENTRAL_USERNAME'] },
         text: 'hello world'
     },
     files: [
@@ -116,14 +116,16 @@ For more sample code, please refer to the [test cases](/spec).
 Create `.env` file with the following content:
 
 ```
-server=https://platform.devtest.ringcentral.com
-clientId=clientId
-clientSecret=clientSecret
-username=username
-extension=extension
-password=password
-receiver=number-to-receiver-sms
+RINGCENTRAL_SERVER_URL=https://platform.devtest.ringcentral.com
+RINGCENTRAL_CLIENT_ID=
+RINGCENTRAL_CLIENT_SECRET=
+RINGCENTRAL_USERNAME=
+RINGCENTRAL_EXTENSION=
+RINGCENTRAL_PASSWORD=
+RINGCENTRAL_RECEIVER=
 ```
+
+`RINGCENTRAL_RECEIVER` is a phone number to receive SMS, Fax..etc.
 
 Run `rspec`
 

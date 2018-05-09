@@ -22,11 +22,11 @@ RSpec.describe 'RingCentral' do
 
     it 'test_password_flow' do
       Dotenv.load
-      rc = RingCentral.new(ENV['clientId'], ENV['clientSecret'], ENV['server'])
+      rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
       expect(rc.token).to be_nil
 
       # create token
-      rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
+      rc.authorize(username: ENV['RINGCENTRAL_USERNAME'], extension: ENV['RINGCENTRAL_EXTENSION'], password: ENV['RINGCENTRAL_PASSWORD'])
       expect(rc.token).not_to be_nil
 
       # refresh token
@@ -40,8 +40,8 @@ RSpec.describe 'RingCentral' do
 
     it 'test_http_methods' do
       Dotenv.load
-      rc = RingCentral.new(ENV['clientId'], ENV['clientSecret'], ENV['server'])
-      rc.authorize(username: ENV['username'], extension: ENV['extension'], password: ENV['password'])
+      rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
+      rc.authorize(username: ENV['RINGCENTRAL_USERNAME'], extension: ENV['RINGCENTRAL_EXTENSION'], password: ENV['RINGCENTRAL_PASSWORD'])
 
       # get
       r = rc.get('/restapi/v1.0/account/~/extension/~')
@@ -50,8 +50,8 @@ RSpec.describe 'RingCentral' do
 
       # post
       r = rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
-        to: [{phoneNumber: ENV['receiver']}],
-        from: {phoneNumber: ENV['username']},
+        to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
+        from: {phoneNumber: ENV['RINGCENTRAL_USERNAME']},
         text: 'Hello world'
       })
       expect(r).not_to be_nil
