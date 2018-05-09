@@ -14,12 +14,12 @@ class RingCentral
     'https://platform.ringcentral.com'
   end
 
-  attr_reader :app_key, :app_secret, :server, :token
+  attr_reader :client_id, :client_secret, :server, :token
   attr_accessor :auto_refresh
 
-  def initialize(app_key, app_secret, server)
-    @app_key = app_key
-    @app_secret = app_secret
+  def initialize(client_id, client_secret, server)
+    @client_id = client_id
+    @client_secret = client_secret
     @server = server
     @auto_refresh = false
     @token = nil
@@ -87,7 +87,7 @@ class RingCentral
       response_type: 'code',
       state: state,
       redirect_uri: redirect_uri,
-      client_id: @app_key
+      client_id: @client_id
     }
     uri.to_s
   end
@@ -150,7 +150,7 @@ class RingCentral
   private
 
     def basic_key
-      Base64.encode64("#{@app_key}:#{@app_secret}").gsub(/\s/, '')
+      Base64.encode64("#{@client_id}:#{@client_secret}").gsub(/\s/, '')
     end
 
     def autorization_header

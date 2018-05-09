@@ -8,16 +8,16 @@ RSpec.describe 'RingCentral' do
     end
 
     it 'test_initializer' do
-      rc = RingCentral.new('app_key', 'app_secret', RingCentral.SANDBOX_SERVER)
-      expect('app_key').to eq(rc.app_key)
-      expect('app_secret').to eq(rc.app_secret)
+      rc = RingCentral.new('client_id', 'client_secret', RingCentral.SANDBOX_SERVER)
+      expect('client_id').to eq(rc.client_id)
+      expect('client_secret').to eq(rc.client_secret)
       expect('https://platform.devtest.ringcentral.com').to eq(rc.server)
       expect(false).to eq(rc.auto_refresh)
     end
 
     it 'test_authorize_uri' do
-      rc = RingCentral.new('app_key', 'app_secret', RingCentral.SANDBOX_SERVER)
-      expect(RingCentral.SANDBOX_SERVER + '/restapi/oauth/authorize?client_id=app_key&redirect_uri=https%3A%2F%2Fexample.com&response_type=code&state=mystate').to eq(rc.authorize_uri('https://example.com', 'mystate'))
+      rc = RingCentral.new('client_id', 'client_secret', RingCentral.SANDBOX_SERVER)
+      expect(RingCentral.SANDBOX_SERVER + '/restapi/oauth/authorize?client_id=client_id&redirect_uri=https%3A%2F%2Fexample.com&response_type=code&state=mystate').to eq(rc.authorize_uri('https://example.com', 'mystate'))
     end
 
     it 'test_password_flow' do

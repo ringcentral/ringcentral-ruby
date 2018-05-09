@@ -13,7 +13,7 @@ gem install ringcentral-sdk
 ```
 
 
-## Name collision with `ringcentral` gem
+### Name collision with `ringcentral` gem
 
 The ringcentral gem is using RingCentral's legacy API, everyone is recommended to move to the REST API.
 
