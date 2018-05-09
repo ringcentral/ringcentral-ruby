@@ -13,6 +13,15 @@ gem install ringcentral-sdk
 ```
 
 
+## Name collision with `ringcentral` gem
+
+The ringcentral gem is using RingCentral's legacy API, everyone is recommended to move to the REST API.
+
+If you have both the ringcentral and ringcentral-sdk gems installed, you will run into a collision error when attempting to initialize the ringcentral-sdk RingCentral SDK.
+
+Solution is `gem uninstall ringcentral`
+
+
 ## Documentation
 
 https://developer.ringcentral.com/api-docs/latest/index.html
