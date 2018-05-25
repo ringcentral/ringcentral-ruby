@@ -15,7 +15,7 @@ RSpec.describe 'Fax' do
         ]
       )
       expect(r).not_to be_nil
-      message = JSON.parse(r.body)
+      message = r.body
       expect('Fax').to eq(message['type'])
     end
   end

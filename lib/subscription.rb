@@ -47,7 +47,7 @@ class PubNub
 
   def subscribe
     r = @rc.post('/restapi/v1.0/subscription', payload: request_body)
-    self.subscription = JSON.parse(r.body)
+    self.subscription = r.body
     @pubnub = Pubnub.new(subscribe_key: @subscription['deliveryMode']['subscriberKey'])
     @pubnub.add_listener(name: 'default', callback: @callback)
     @pubnub.subscribe(channels: @subscription['deliveryMode']['address'])
@@ -56,7 +56,7 @@ class PubNub
   def refresh
     return if @subscription == nil
     r = @rc.put("/restapi/v1.0/subscription/#{@subscription['id']}", payload: request_body)
-    self.subscription = JSON.parse(r.body)
+    self.subscription = r.body
   end
 
   def revoke

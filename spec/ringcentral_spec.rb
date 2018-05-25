@@ -46,7 +46,7 @@ RSpec.describe 'RingCentral' do
       # get
       r = rc.get('/restapi/v1.0/account/~/extension/~')
       expect(r).not_to be_nil
-      expect('101').to eq(JSON.parse(r.body)['extensionNumber'])
+      expect('101').to eq(r.body['extensionNumber'])
 
       # post
       r = rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
@@ -55,18 +55,18 @@ RSpec.describe 'RingCentral' do
         text: 'Hello world'
       })
       expect(r).not_to be_nil
-      message = JSON.parse(r.body)
+      message = r.body
       expect('SMS').to eq(message['type'])
       messageUrl = "/restapi/v1.0/account/~/extension/~/message-store/#{message['id']}"
 
       # put
       r = rc.put(messageUrl, payload: { readStatus: 'Unread' })
       expect(r).not_to be_nil
-      message = JSON.parse(r.body)
+      message = r.body
       expect('Unread').to eq(message['readStatus'])
       r = rc.put(messageUrl, payload: { readStatus: 'Read' })
       expect(r).not_to be_nil
-      message = JSON.parse(r.body)
+      message = r.body
       expect('Read').to eq(message['readStatus'])
 
       # todo: test patch
@@ -76,7 +76,7 @@ RSpec.describe 'RingCentral' do
       expect(r).not_to be_nil
       r = rc.get(messageUrl)
       expect(r).not_to be_nil
-      message = JSON.parse(r.body)
+      message = r.body
       expect('Deleted').to eq(message['availability'])
     end
   end

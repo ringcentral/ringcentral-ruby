@@ -3,6 +3,7 @@ require 'addressable/uri'
 require 'json'
 require 'concurrent'
 require 'faraday'
+require 'faraday_middleware'
 require 'tmpdir'
 
 class RingCentral
@@ -27,6 +28,7 @@ class RingCentral
     @faraday = Faraday.new(url: server) do |faraday|
       faraday.request :multipart
       faraday.request :url_encoded
+      faraday.response :json, :content_type => /\bjson$/
       faraday.adapter Faraday.default_adapter
     end
   end
@@ -60,7 +62,7 @@ class RingCentral
     end
     self.token = nil
     r = self.post('/restapi/oauth/token', payload: payload)
-    self.token = JSON.parse(r.body)
+    self.token = r.body
   end
 
   def refresh
@@ -71,7 +73,7 @@ class RingCentral
     }
     self.token = nil
     r = self.post('/restapi/oauth/token', payload: payload)
-    self.token = JSON.parse(r.body)
+    self.token = r.body
   end
 
   def revoke

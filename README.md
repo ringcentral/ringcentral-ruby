@@ -38,7 +38,7 @@ rc.authorize(username: ENV['RINGCENTRAL_USERNAME'], extension: ENV['RINGCENTRAL_
 # get
 r = rc.get('/restapi/v1.0/account/~/extension/~')
 expect(r).not_to be_nil
-expect('101').to eq(JSON.parse(r.body)['extensionNumber'])
+expect('101').to eq(r.body['extensionNumber'])
 ```
 
 
