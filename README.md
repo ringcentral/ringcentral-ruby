@@ -48,6 +48,15 @@ Access token expires. You need to call `rc.refresh()` before it expires.
 If you want the SDK to do auto refresh please `rc.auto_refresh = true` before authorization.
 
 
+### Load preexisting token
+
+Let's say you already have a token. Then you can load it like this: `rc.token = your_token_object`
+
+The benifits of loading a preexisting token is you don't need to go through any authorization flow.
+
+If what you have is a string instead of a Ruby object, you need to convert it first: `JSON.parse(your_token_string)`.
+
+
 ### Send SMS
 
 ```ruby
