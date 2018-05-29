@@ -50,7 +50,7 @@ If you want the SDK to do auto refresh please `rc.auto_refresh = true` before au
 
 ### Load preexisting token
 
-Let's say you already have a token. Then you can load it like this: `rc.token = your_token_object`
+Let's say you already have a token. Then you can load it like this: `rc.token = your_token_object`.
 
 The benifits of loading a preexisting token is you don't need to go through any authorization flow.
 
