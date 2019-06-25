@@ -46,6 +46,21 @@ expect('101').to eq(r.body['extensionNumber'])
 ```
 
 
+## How to specify query parameters
+
+### for get & delete
+
+```ruby
+rc.get('/restapi/v1.0/account/~/extension', { hello: 'world' })
+```
+
+### for post, put & patch
+
+```ruby
+rc.post('/restapi/v1.0/account/~/extension/~/sms', body, { hello: 'world' })
+```
+
+
 ### Token Refresh
 
 Access token expires. You need to call `rc.refresh()` before it expires.
