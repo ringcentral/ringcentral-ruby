@@ -126,6 +126,10 @@ For more sample code, please refer to the [test cases](/spec).
 
 ## How to test
 
+```
+bundle install --path vendor/bundle
+```
+
 Create `.env` file with the following content:
 
 ```
@@ -140,7 +144,7 @@ RINGCENTRAL_RECEIVER=
 
 `RINGCENTRAL_RECEIVER` is a phone number to receive SMS, Fax..etc.
 
-Run `rspec`
+Run `bundle exec rspec`
 
 
 ## License

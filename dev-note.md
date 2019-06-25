@@ -1,7 +1,7 @@
 ## Test
 
 ```
-rspec
+bundle exec rspec
 ```
 
 
