@@ -62,7 +62,9 @@ rc.post('/restapi/v1.0/account/~/extension/~/sms', body, { hello: 'world' })
 
 ### multi-value query parameter
 
+```ruby
 rc.get('/restapi/v1.0/account/~/extension', { hello: ['world1', 'world2'] })
+```
 
 Above will be translated to `/restapi/v1.0/account/~/extension?hello=world1&hello=world2`.
 
