@@ -57,7 +57,7 @@ rc.get('/restapi/v1.0/account/~/extension', { hello: 'world' })
 ### for post, put & patch
 
 ```ruby
-rc.post('/restapi/v1.0/account/~/extension/~/sms', body, { hello: 'world' })
+rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: body, params: { hello: 'world' })
 ```
 
 ### multi-value query parameter
