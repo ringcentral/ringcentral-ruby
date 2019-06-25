@@ -25,10 +25,10 @@ class RingCentral
     @auto_refresh = false
     @token = nil
     @timer = nil
-    @faraday = Faraday.new(url: server) do |faraday|
+    @faraday = Faraday.new(url: server, request: { params_encoder: Faraday::FlatParamsEncoder }) do |faraday|
       faraday.request :multipart
       faraday.request :url_encoded
-      faraday.response :json, :content_type => /\bjson$/
+      faraday.response :json, content_type: /\bjson$/
       faraday.adapter Faraday.default_adapter
     end
   end
