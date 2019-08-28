@@ -81,7 +81,13 @@ Let's say you already have a token. Then you can load it like this: `rc.token = 
 
 The benifits of loading a preexisting token is you don't need to go through any authorization flow.
 
-If what you have is a string instead of a Ruby object, you need to convert it first: `JSON.parse(your_token_string)`.
+If what you have is a JSON string instead of a Ruby object, you need to convert it first: `JSON.parse(your_token_string)`.
+
+If you only have a string for the access token instead of for the whole object, you can set it like this:
+
+```ruby
+rc.token = { access_token: 'the token string' }
+```
 
 
 ### Send SMS
