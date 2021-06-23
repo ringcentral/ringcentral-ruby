@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/ringcentral/ringcentral-ruby.svg?branch=master)](https://travis-ci.org/ringcentral/ringcentral-ruby)
 [![Coverage Status](https://coveralls.io/repos/github/ringcentral/ringcentral-ruby/badge.svg?branch=master)](https://coveralls.io/github/ringcentral/ringcentral-ruby?branch=master)
-[![Community](https://img.shields.io/badge/dynamic/json.svg?label=community&colorB=&suffix=%20users&query=$.approximate_people_count&uri=http%3A%2F%2Fapi.getsatisfaction.com%2Fcompanies%2F102909.json)](https://devcommunity.ringcentral.com/ringcentraldev)
 [![Twitter](https://img.shields.io/twitter/follow/ringcentraldevs.svg?style=social&label=follow)](https://twitter.com/RingCentralDevs)
 
 __[RingCentral Developers](https://developer.ringcentral.com/api-products)__ is a cloud communications platform which can be accessed via more than 70 APIs. The platform's main capabilities include technologies that enable:
@@ -25,11 +24,11 @@ gem install ringcentral-sdk
 
 ### Name collision with `ringcentral` gem
 
-The ringcentral gem is using RingCentral's legacy API, everyone is recommended to move to the REST API.
+The `ringcentral` gem is using RingCentral's legacy API which was End-of-Lifed in 2018. Everyone is recommended to move to the REST API.
 
-If you have both the ringcentral and ringcentral-sdk gems installed, you will run into a collision error when attempting to initialize the ringcentral-sdk RingCentral SDK.
+If you have both the `ringcentral` and `ringcentral-sdk` gems installed, you will run into a collision error when attempting to initialize the `ringcentral-sdk` RingCentral SDK.
 
-Solution is `gem uninstall ringcentral`
+The solution is `gem uninstall ringcentral`
 
 
 ## Documentation
