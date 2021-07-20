@@ -1,6 +1,6 @@
 # RingCentral SDK for Ruby
 
-[![Coverage Status](https://coveralls.io/repos/github/ringcentral/ringcentral-ruby/badge.svg?branch=master)](https://coveralls.io/github/ringcentral/ringcentral-ruby?branch=master)
+[![Ruby](https://github.com/ringcentral/ringcentral-ruby/actions/workflows/ruby.yml/badge.svg)](https://github.com/ringcentral/ringcentral-ruby/actions/workflows/ruby.yml)
 [![Twitter](https://img.shields.io/twitter/follow/ringcentraldevs.svg?style=social&label=follow)](https://twitter.com/RingCentralDevs)
 
 __[RingCentral Developers](https://developer.ringcentral.com/api-products)__ is a cloud communications platform which can be accessed via more than 70 APIs. The platform's main capabilities include technologies that enable:
