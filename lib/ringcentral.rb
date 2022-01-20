@@ -45,12 +45,20 @@ class RingCentral
     end
   end
 
-  def authorize(username: nil, extension: nil, password: nil, auth_code: nil, redirect_uri: nil)
+  def authorize(username: nil, extension: nil, password: nil, auth_code: nil, redirect_uri: nil, jwt: nil, verifier: nil)
     if auth_code != nil
       payload = {
         grant_type: 'authorization_code',
         code: auth_code,
         redirect_uri: redirect_uri,
+      }
+      if verifier != nil
+        payload["code_verifier"] = verifier
+      end
+    elsif jwt != nil
+      payload = {
+        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+        assertion: jwt
       }
     else
       payload = {
@@ -83,7 +91,7 @@ class RingCentral
     self.post('/restapi/oauth/revoke', payload: payload)
   end
 
-  def authorize_uri(redirect_uri, state = '')
+  def authorize_uri(redirect_uri, state = '', challenge = nil, challenge_method = 'S256')
     uri = Addressable::URI.parse(@server) + '/restapi/oauth/authorize'
     uri.query_values = {
       response_type: 'code',
@@ -91,6 +99,10 @@ class RingCentral
       redirect_uri: redirect_uri,
       client_id: @client_id
     }
+    if challenge != nil
+      uri.query_values["code_challenge"] = challenge
+      uri.query_values["code_challenge_method"] = challenge_method
+    end
     uri.to_s
   end
 
