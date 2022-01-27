@@ -2,6 +2,7 @@ require 'pubnub'
 require 'concurrent'
 require 'openssl'
 require 'base64'
+require 'securerandom'
 
 class PubNub
   attr_accessor :events
@@ -48,7 +49,7 @@ class PubNub
   def subscribe
     r = @rc.post('/restapi/v1.0/subscription', payload: request_body)
     self.subscription = r.body
-    @pubnub = Pubnub.new(subscribe_key: @subscription['deliveryMode']['subscriberKey'])
+    @pubnub = Pubnub.new(subscribe_key: @subscription['deliveryMode']['subscriberKey'], uuid: SecureRandom.uuid)
     @pubnub.add_listener(name: 'default', callback: @callback)
     @pubnub.subscribe(channels: @subscription['deliveryMode']['address'])
   end
