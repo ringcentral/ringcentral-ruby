@@ -9,6 +9,4 @@ gem 'faraday_middleware'
 group :test do
   gem 'dotenv'
   gem 'rspec'
-  gem 'simplecov'
-  gem 'coveralls'
 end
