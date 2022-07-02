@@ -1,3 +1,10 @@
+## Update all dependencies
+
+```
+bundle update
+```
+
+
 ## Test
 
 ```

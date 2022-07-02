@@ -4,7 +4,7 @@ gem 'addressable'
 gem 'concurrent-ruby'
 gem 'pubnub'
 gem 'faraday'
-gem 'faraday_middleware'
+gem 'faraday-multipart'
 
 group :test do
   gem 'dotenv'
