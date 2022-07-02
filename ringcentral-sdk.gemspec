@@ -14,8 +14,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = Dir['spec/**/*.rb']
 
   gem.add_dependency('addressable', '~> 2.8', '>= 2.8.0')
-  gem.add_dependency('concurrent-ruby', '~> 1.1', '>= 1.1.9')
+  gem.add_dependency('concurrent-ruby', '~> 1.1', '>= 1.1.10')
   gem.add_dependency('pubnub', '~> 5.0', '>= 5.0.0')
-  gem.add_dependency('faraday', '~> 2.1', '>= 2.1.0')
+  gem.add_dependency('faraday', '~> 2.3', '>= 2.3.0')
   gem.add_dependency('faraday_middleware', '~> 1.2.0', '>= 1.2.0')
 end
