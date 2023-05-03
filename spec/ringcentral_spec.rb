@@ -20,13 +20,13 @@ RSpec.describe 'RingCentral' do
       expect(RingCentral.SANDBOX_SERVER + '/restapi/oauth/authorize?client_id=client_id&redirect_uri=https%3A%2F%2Fexample.com&response_type=code&state=mystate').to eq(rc.authorize_uri('https://example.com', 'mystate'))
     end
 
-    it 'test_password_flow' do
+    it 'test_jwt_flow' do
       Dotenv.load
       rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
       expect(rc.token).to be_nil
 
       # create token
-      rc.authorize(username: ENV['RINGCENTRAL_USERNAME'], extension: ENV['RINGCENTRAL_EXTENSION'], password: ENV['RINGCENTRAL_PASSWORD'])
+      rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
       expect(rc.token).not_to be_nil
 
       # refresh token
@@ -41,7 +41,7 @@ RSpec.describe 'RingCentral' do
     it 'test_http_methods' do
       Dotenv.load
       rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
-      rc.authorize(username: ENV['RINGCENTRAL_USERNAME'], extension: ENV['RINGCENTRAL_EXTENSION'], password: ENV['RINGCENTRAL_PASSWORD'])
+      rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
 
       # get
       r = rc.get('/restapi/v1.0/account/~/extension/~')
@@ -51,7 +51,7 @@ RSpec.describe 'RingCentral' do
       # post
       r = rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
         to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-        from: {phoneNumber: ENV['RINGCENTRAL_USERNAME']},
+        from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
         text: 'Hello world'
       })
       expect(r).not_to be_nil

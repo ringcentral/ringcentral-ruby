@@ -5,7 +5,7 @@ require 'rspec'
 
 Dotenv.load
 $rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
-$rc.authorize(username: ENV['RINGCENTRAL_USERNAME'], extension: ENV['RINGCENTRAL_EXTENSION'], password: ENV['RINGCENTRAL_PASSWORD'])
+$rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
 
 def createSubscription(callback)
   events = [
@@ -28,7 +28,7 @@ RSpec.describe 'Subscription' do
 
       $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
         to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-        from: {phoneNumber: ENV['RINGCENTRAL_USERNAME']},
+        from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
         text: 'Hello world'
       })
       sleep(20)
@@ -46,7 +46,7 @@ RSpec.describe 'Subscription' do
 
       $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
         to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-        from: {phoneNumber: ENV['RINGCENTRAL_USERNAME']},
+        from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
         text: 'Hello world'
       })
       sleep(20)
@@ -64,7 +64,7 @@ RSpec.describe 'Subscription' do
 
       $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
         to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-        from: {phoneNumber: ENV['RINGCENTRAL_USERNAME']},
+        from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
         text: 'Hello world'
       })
       sleep(20)

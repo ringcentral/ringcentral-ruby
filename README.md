@@ -41,7 +41,7 @@ https://developer.ringcentral.com/api-docs/latest/index.html
 require 'ringcentral'
 
 rc = RingCentral.new('clientID', 'clientSecret', 'serverURL')
-rc.authorize(username: 'username', extension: 'extension', password: 'password')
+rc.authorize(jwt: 'jwt-token')
 
 # get
 r = rc.get('/restapi/v1.0/account/~/extension/~')
@@ -98,7 +98,7 @@ rc.token = { access_token: 'the token string' }
 ```ruby
 r = rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
     to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-    from: {phoneNumber: ENV['RINGCENTRAL_USERNAME']},
+    from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
     text: 'Hello world'
 })
 ```
@@ -123,7 +123,7 @@ payload: { to: [{ phoneNumber: ENV['RINGCENTRAL_RECEIVER'] }] },
 r = rc.post('/restapi/v1.0/account/~/extension/~/sms',
     payload: {
         to: [{ phoneNumber: ENV['RINGCENTRAL_RECEIVER'] }],
-        from: { phoneNumber: ENV['RINGCENTRAL_USERNAME'] },
+        from: { phoneNumber: ENV['RINGCENTRAL_SENDER'] },
         text: 'hello world'
     },
     files: [
@@ -162,17 +162,9 @@ For more sample codes, please refer to the [test cases](/spec).
 bundle install --path vendor/bundle
 ```
 
-Create `.env` file with the following content:
+Rename `.env.sample` to `.env`.
 
-```
-RINGCENTRAL_SERVER_URL=https://platform.devtest.ringcentral.com
-RINGCENTRAL_CLIENT_ID=
-RINGCENTRAL_CLIENT_SECRET=
-RINGCENTRAL_USERNAME=
-RINGCENTRAL_EXTENSION=
-RINGCENTRAL_PASSWORD=
-RINGCENTRAL_RECEIVER=
-```
+Edit `.env` file to specify credentials.
 
 `RINGCENTRAL_RECEIVER` is a phone number to receive SMS, Fax..etc.
 
