@@ -82,8 +82,7 @@ If you want the SDK to do auto refresh please `rc.auto_refresh = true` before au
 ### Load preexisting token
 
 Let's say you already have a token. Then you can load it like this: `rc.token = your_token_object`.
-
-The benifits of loading a preexisting token is you don't need to go through any authorization flow.
+The benefit of loading a preexisting token is you don't need to go through any authorization flow.
 
 If what you have is a JSON string instead of a Ruby object, you need to convert it first: `JSON.parse(your_token_string)`.
 
@@ -154,7 +153,7 @@ createSubscription(lambda { |message|
 ```
 
 
-For more sample code, please refer to the [test cases](/spec).
+For more sample codes, please refer to the [test cases](/spec).
 
 
 ## How to test
@@ -183,8 +182,3 @@ Run `bundle exec rspec`
 ## License
 
 MIT
-
-
-## Todo
-
-- Batch requests

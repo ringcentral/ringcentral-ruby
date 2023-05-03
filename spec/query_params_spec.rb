@@ -16,6 +16,7 @@ RSpec.describe 'query params' do
       expect(r).not_to be_nil
       message = r.body
       expect(message['uri']).to include('phoneNumber=666&phoneNumber=888')
+
       rc.revoke()
     end
   end

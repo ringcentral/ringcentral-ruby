@@ -21,6 +21,8 @@ RSpec.describe 'MMS' do
       expect(r).not_to be_nil
       message = r.body
       expect('SMS').to eq(message['type'])
+
+      rc.revoke()
     end
   end
 end

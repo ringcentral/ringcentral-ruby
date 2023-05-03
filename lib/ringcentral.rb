@@ -175,8 +175,7 @@ class RingCentral
       user_agent_header = "ringcentral/ringcentral-ruby Ruby #{RUBY_VERSION} #{RUBY_PLATFORM}"
       {
         'Authorization': autorization_header,
-        'RC-User-Agent': user_agent_header,
-        'User-Agent': user_agent_header,
+        'X-User-Agent': user_agent_header,
       }
     end
 end

@@ -78,6 +78,8 @@ RSpec.describe 'RingCentral' do
       expect(r).not_to be_nil
       message = r.body
       expect('Deleted').to eq(message['availability'])
+
+      rc.revoke()
     end
   end
 end

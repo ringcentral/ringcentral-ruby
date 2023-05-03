@@ -13,9 +13,9 @@ Gem::Specification.new do |gem|
   gem.files        += Dir['lib/**/*.rb']
   gem.test_files    = Dir['spec/**/*.rb']
 
-  gem.add_dependency('addressable', '~> 2.8', '>= 2.8.0')
-  gem.add_dependency('concurrent-ruby', '~> 1.1', '>= 1.1.10')
-  gem.add_dependency('pubnub', '~> 5.0', '>= 5.0.0')
-  gem.add_dependency('faraday', '~> 2.3', '>= 2.3.0')
+  gem.add_dependency('addressable', '~> 2.8', '>= 2.8.4')
+  gem.add_dependency('concurrent-ruby', '~> 1.2', '>= 1.2.2')
+  gem.add_dependency('pubnub', '~> 5.2', '>= 5.2.2')
+  gem.add_dependency('faraday', '~> 2.7', '>= 2.7.4')
   gem.add_dependency('faraday-multipart', '~> 1.0', '>= 1.0.4')
 end

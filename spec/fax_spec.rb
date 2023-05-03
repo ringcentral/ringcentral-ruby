@@ -17,6 +17,8 @@ RSpec.describe 'Fax' do
       expect(r).not_to be_nil
       message = r.body
       expect('Fax').to eq(message['type'])
+
+      rc.revoke()
     end
   end
 end
