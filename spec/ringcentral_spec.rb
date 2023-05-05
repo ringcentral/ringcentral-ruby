@@ -17,7 +17,7 @@ RSpec.describe 'RingCentral' do
 
     it 'test_authorize_uri' do
       rc = RingCentral.new('client_id', 'client_secret', RingCentral.SANDBOX_SERVER)
-      expect(RingCentral.SANDBOX_SERVER + '/restapi/oauth/authorize?client_id=client_id&redirect_uri=https%3A%2F%2Fexample.com&response_type=code&state=mystate').to eq(rc.authorize_uri('https://example.com', 'mystate'))
+      expect(RingCentral.SANDBOX_SERVER + '/restapi/oauth/authorize?client_id=client_id&redirect_uri=https%3A%2F%2Fexample.com&response_type=code&state=mystate').to eq(rc.authorize_uri('https://example.com', {state: 'mystate'}))
     end
 
     it 'test_jwt_flow' do

@@ -92,18 +92,12 @@ class RingCentral
     self.post('/restapi/oauth/revoke', payload: payload)
   end
 
-  def authorize_uri(redirect_uri, state = '', challenge = nil, challenge_method = 'S256')
+  def authorize_uri(redirect_uri, hash = {})
+    hash[:response_type] = 'code'
+    hash[:redirect_uri] = redirect_uri
+    hash[:client_id] = @client_id
     uri = Addressable::URI.parse(@server) + '/restapi/oauth/authorize'
-    uri.query_values = {
-      response_type: 'code',
-      state: state,
-      redirect_uri: redirect_uri,
-      client_id: @client_id
-    }
-    if challenge != nil
-      uri.query_values["code_challenge"] = challenge
-      uri.query_values["code_challenge_method"] = challenge_method
-    end
+    uri.query_values = hash
     uri.to_s
   end
 
