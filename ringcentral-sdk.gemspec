@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name          = 'ringcentral-sdk'
-  gem.version       = '0.9.8'
+  gem.version       = '0.9.9'
   gem.authors       = ['Tyler Liu']
   gem.email         = ['tyler.liu@ringcentral.com']
   gem.description   = 'Ruby SDK for you to access RingCentral platform API.'
