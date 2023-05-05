@@ -16,13 +16,14 @@ class RingCentral
   end
 
   attr_reader :client_id, :client_secret, :server, :token
-  attr_accessor :auto_refresh
+  attr_accessor :auto_refresh, :debug_mode
 
-  def initialize(client_id, client_secret, server)
+  def initialize(client_id, client_secret, server, debug_mode = false)
     @client_id = client_id
     @client_secret = client_secret
     @server = server
     @auto_refresh = false
+    @debug_mode = debug_mode
     @token = nil
     @timer = nil
     @faraday = Faraday.new(url: server, request: { params_encoder: Faraday::FlatParamsEncoder }) do |faraday|
@@ -107,15 +108,26 @@ class RingCentral
   end
 
   def get(endpoint, params = {})
-    @faraday.get do |req|
+    r = @faraday.get do |req|
       req.url endpoint
       req.params = params
       req.headers = headers
     end
+    if @debug_mode
+      puts r.status, r.body
+    end
+    if r.status >= 400
+      raise "HTTP status #{r.status}: 
+
+headers: #{r.headers}
+
+body: #{r.body}"
+    end
+    return r
   end
 
   def post(endpoint, payload: nil, params: {}, files: nil)
-    @faraday.post do |req|
+    r = @faraday.post do |req|
       req.url endpoint
       req.params = params
       if files != nil && files.size > 0 # send fax or MMS
@@ -133,32 +145,76 @@ class RingCentral
         req.body = payload
       end
     end
+    if @debug_mode
+      puts r.status, r.body
+    end
+    if r.status >= 400
+      raise "HTTP status #{r.status}: 
+
+headers: #{r.headers}
+
+body: #{r.body}"
+    end
+    return r
   end
 
   def put(endpoint, payload: nil, params: {}, files: nil)
-    @faraday.put do |req|
+    r = @faraday.put do |req|
       req.url endpoint
       req.params = params
       req.headers = headers.merge({ 'Content-Type': 'application/json' })
       req.body = payload.to_json
     end
+    if @debug_mode
+      puts r.status, r.body
+    end
+    if r.status >= 400
+      raise "HTTP status #{r.status}: 
+
+headers: #{r.headers}
+
+body: #{r.body}"
+    end
+    return r
   end
 
   def patch(endpoint, payload: nil, params: {}, files: nil)
-    @faraday.patch do |req|
+    r = @faraday.patch do |req|
       req.url endpoint
       req.params = params
       req.headers = headers.merge({ 'Content-Type': 'application/json' })
       req.body = payload.to_json
     end
+    if @debug_mode
+      puts r.status, r.body
+    end
+    if r.status >= 400
+      raise "HTTP status #{r.status}: 
+
+headers: #{r.headers}
+
+body: #{r.body}"
+    end
+    return r
   end
 
   def delete(endpoint, params = {})
-    @faraday.delete do |req|
+    r = @faraday.delete do |req|
       req.url endpoint
       req.params = params
       req.headers = headers
     end
+    if @debug_mode
+      puts r.status, r.body
+    end
+    if r.status >= 400
+      raise "HTTP status #{r.status}: 
+
+headers: #{r.headers}
+
+body: #{r.body}"
+    end
+    return r
   end
 
   private
