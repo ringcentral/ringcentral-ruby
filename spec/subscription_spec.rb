@@ -5,7 +5,7 @@ require 'rspec'
 
 Dotenv.load
 $rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
-$rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
+
 
 def createSubscription(callback)
   events = [
@@ -21,6 +21,7 @@ end
 RSpec.describe 'Subscription' do
   describe 'subscription' do
     it 'receives message notification' do
+      $rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
       count = 0
       createSubscription(lambda { |message|
         count += 1
@@ -34,9 +35,11 @@ RSpec.describe 'Subscription' do
       sleep(20)
 
       expect(count).to be > 0
+      $rc.revoke()
     end
 
     it 'refresh' do
+      $rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
       count = 0
       subscription = createSubscription(lambda { |message|
         count += 1
@@ -52,9 +55,11 @@ RSpec.describe 'Subscription' do
       sleep(20)
 
       expect(count).to be > 0
+      $rc.revoke()
     end
 
     it 'revoke' do
+      $rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
       count = 0
       subscription = createSubscription(lambda { |message|
         count += 1
@@ -70,6 +75,7 @@ RSpec.describe 'Subscription' do
       sleep(20)
 
       expect(count).to eq(0)
+      $rc.revoke()
     end
   end
 end
