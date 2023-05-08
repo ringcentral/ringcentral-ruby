@@ -2,12 +2,35 @@ require 'pubnub'
 require 'concurrent'
 require 'openssl'
 require 'base64'
+require 'faye/websocket'
+require 'securerandom'
 
-class WebSocket
+class WS
   def initialize(ringcentral, events, callback)
     @rc = ringcentral
     @events = events
     @callback = callback
+  end
+
+  def subscribe
+    r = @rc.post('/restapi/oauth/wstoken').body
+    @ws = Faye::WebSocket::Client.new(r.uri + '?access_token=' + r.ws_access_token)
+    @ws.on :open do
+      @ws.send([
+        { type: 'ClientRequest', method: 'POST', path: '/restapi/v1.0/subscription', messageId: SecureRandom.uuid },
+        { deliveryMode: { transportType: 'WebSocket' }, eventFilters: @events }
+      ].to_json())
+    end
+    @ws.on :message do |event|
+      header, body = JSON.parse(event.data)
+      if heander['messageType'] == 'ServerNotification'
+        @callback.call(body)
+      end
+    end
+  end
+
+  def revoke
+    @ws.close
   end
 end
 
