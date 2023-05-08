@@ -135,23 +135,30 @@ r = rc.post('/restapi/v1.0/account/~/extension/~/sms',
 ```
 
 
-### PubNub subscription
+## Subscriptions
+
+### WebSocket Subscriptions
 
 ```ruby
-def createSubscription(callback)
-    events = [
-        '/restapi/v1.0/account/~/extension/~/message-store',
-    ]
-    subscription = PubNub.new(rc, events, lambda { |message|
-        callback.call(message)
-    })
-    subscription.subscribe()
-    return subscription
-end
-
-createSubscription(lambda { |message|
-    puts message
+events = [
+  '/restapi/v1.0/account/~/extension/~/message-store',
+]
+subscription = WS.new(rc, events, lambda { |message|
+  puts message
 })
+subscription.subscribe()
+```
+
+### PubNub Subscriptions
+
+```ruby
+events = [
+  '/restapi/v1.0/account/~/extension/~/message-store',
+]
+subscription = PubNub.new(rc, events, lambda { |message|
+  puts message
+})
+subscription.subscribe()
 ```
 
 
