@@ -3,6 +3,14 @@ require 'concurrent'
 require 'openssl'
 require 'base64'
 
+class WebSocket
+  def initialize(ringcentral, events, callback)
+    @rc = ringcentral
+    @events = events
+    @callback = callback
+  end
+end
+
 class PubNub
   attr_accessor :events
 

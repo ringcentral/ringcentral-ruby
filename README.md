@@ -20,6 +20,8 @@ If you are having difficulty using this SDK, or working with the RingCentral API
 gem install ringcentral-sdk
 ```
 
+If for some reason `eventmachine` failed to install, please check [this](https://stackoverflow.com/a/31516586/862862).
+
 
 ### Name collision with `ringcentral` gem
 

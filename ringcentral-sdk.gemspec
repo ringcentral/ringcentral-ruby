@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name          = 'ringcentral-sdk'
-  gem.version       = '0.9.9'
+  gem.version       = '1.0.0-beta.1'
   gem.authors       = ['Tyler Liu']
   gem.email         = ['tyler.liu@ringcentral.com']
   gem.description   = 'Ruby SDK for you to access RingCentral platform API.'
@@ -18,4 +18,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency('pubnub', '~> 5.2', '>= 5.2.2')
   gem.add_dependency('faraday', '~> 2.7', '>= 2.7.4')
   gem.add_dependency('faraday-multipart', '~> 1.0', '>= 1.0.4')
+  gem.add_dependency('faye-websocket', '~> 0.11', '>= 0.11.2')
 end
