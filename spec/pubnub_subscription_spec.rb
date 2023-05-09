@@ -6,19 +6,18 @@ require 'rspec'
 Dotenv.load
 $rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
 
-
-def createSubscription(callback)
-  events = [
-    '/restapi/v1.0/account/~/extension/~/message-store',
-  ]
-  subscription = PubNub.new($rc, events, lambda { |message|
-    callback.call(message)
-  })
-  subscription.subscribe()
-  return subscription
-end
-
 RSpec.describe 'PubNub Subscription' do
+  def createSubscription(callback)
+    events = [
+      '/restapi/v1.0/account/~/extension/~/message-store',
+    ]
+    subscription = PubNub.new($rc, events, lambda { |message|
+      callback.call(message)
+    })
+    subscription.subscribe()
+    return subscription
+  end
+
   describe 'PubNub Subscription' do
     it 'receives message notification' do
       $rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
