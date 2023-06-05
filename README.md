@@ -149,7 +149,7 @@ subscription = WS.new(rc, events, lambda { |message|
 subscription.subscribe()
 ```
 
-### PubNub Subscriptions
+### (deprecated) PubNub Subscriptions
 
 ```ruby
 events = [

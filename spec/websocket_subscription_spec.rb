@@ -23,7 +23,6 @@ RSpec.describe 'WebSocket Subscription' do
       $rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
       count = 0
       sub = createSubscription(lambda { |message|
-        puts message
         count += 1
       })
 

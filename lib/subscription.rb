@@ -43,6 +43,7 @@ class PubNub
   attr_accessor :events
 
   def initialize(ringcentral, events, message_callback, status_callback = nil, presence_callback = nil)
+    warn('PubNub is deprecated. Use WS (WebSocket) instead.')
     @rc = ringcentral
     @events = events
     @callback = Pubnub::SubscribeCallback.new(
