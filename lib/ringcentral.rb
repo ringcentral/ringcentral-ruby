@@ -62,6 +62,7 @@ class RingCentral
         assertion: jwt
       }
     else
+      warn('Password auth is deprecated. Use JWT auth or OAuth instead.')
       payload = {
         grant_type: 'password',
         username: username,
