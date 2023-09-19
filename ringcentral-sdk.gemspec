@@ -15,7 +15,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('addressable', '~> 2.8', '>= 2.8.4')
   gem.add_dependency('concurrent-ruby', '~> 1.2', '>= 1.2.2')
-  gem.add_dependency('pubnub', '~> 5.2', '>= 5.2.2')
   gem.add_dependency('faraday', '~> 2.7', '>= 2.7.4')
   gem.add_dependency('faraday-multipart', '~> 1.0', '>= 1.0.4')
   gem.add_dependency('faye-websocket', '~> 0.11', '>= 0.11.2')
