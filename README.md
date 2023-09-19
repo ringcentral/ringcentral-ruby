@@ -149,19 +149,6 @@ subscription = WS.new(rc, events, lambda { |message|
 subscription.subscribe()
 ```
 
-### (deprecated) PubNub Subscriptions
-
-```ruby
-events = [
-  '/restapi/v1.0/account/~/extension/~/message-store',
-]
-subscription = PubNub.new(rc, events, lambda { |message|
-  puts message
-})
-subscription.subscribe()
-```
-
-
 For more sample codes, please refer to the [test cases](/spec).
 
 
