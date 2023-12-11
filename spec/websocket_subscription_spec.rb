@@ -15,6 +15,9 @@ RSpec.describe 'WebSocket Subscription' do
       callback.call(message)
     })
     subscription.subscribe()
+    # subscription.on_ws_closed = lambda { |event|
+    #   puts 'WebSocket closed'
+    # }
     return subscription
   end
 

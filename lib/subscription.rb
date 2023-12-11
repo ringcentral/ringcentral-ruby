@@ -14,6 +14,10 @@ class WS
     @debugMode = debugMode
   end
 
+  def on_ws_closed=(callback)
+    @on_ws_closed = callback
+  end
+
   def subscribe
     r = @rc.post('/restapi/oauth/wstoken').body
     @t = Thread.new do
@@ -48,6 +52,11 @@ class WS
           header, body = JSON.parse(event.data)
           if header['type'] == 'ServerNotification'
             @callback.call(body)
+          end
+        end
+        @ws.on :close do |event|
+          if @on_ws_closed
+            @on_ws_closed.call(event)
           end
         end
       }

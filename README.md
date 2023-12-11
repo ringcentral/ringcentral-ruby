@@ -149,6 +149,22 @@ subscription = WS.new(rc, events, lambda { |message|
 subscription.subscribe()
 ```
 
+#### How to keep a subscription running 24 * 7?
+
+There are two main cases that a subscription will be terminated:
+
+- Absolute time out. The maximum time for a subscription to run is 24 hours. After that, the websocket connection will be closed by the server.
+- Network issue. It could be your local network issue or the server's network issue. In either case, your websocket connection will be closed
+
+In order to keep a subscription running 24 * 7, you need to re-subscribe when the connection is closed.
+
+```ruby
+subscription.on_ws_closed = lambda { |event|
+  # make sure that there is no network issue and re-subscribe
+  subscription.subscribe()
+}
+```
+
 ### (deprecated) PubNub Subscriptions
 
 ```ruby
