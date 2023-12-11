@@ -49,14 +49,14 @@ RSpec.describe 'RingCentral' do
       expect('101').to eq(r.body['extensionNumber'])
 
       # post
-      r = rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
-        to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-        from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
+      r = rc.post('/restapi/v1.0/account/~/extension/~/company-pager', payload: {
+        to: [{extensionId: rc.token['owner_id']}],
+        from: {extensionId: rc.token['owner_id']},
         text: 'Hello world'
       })
       expect(r).not_to be_nil
       message = r.body
-      expect('SMS').to eq(message['type'])
+      expect('Pager').to eq(message['type'])
       messageUrl = "/restapi/v1.0/account/~/extension/~/message-store/#{message['id']}"
 
       # put

@@ -9,7 +9,7 @@ $rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECR
 RSpec.describe 'PubNub Subscription' do
   def createSubscription(callback)
     events = [
-      '/restapi/v1.0/account/~/extension/~/message-store',
+      '/restapi/v1.0/account/~/extension/~/message-store?type=Pager',
     ]
     subscription = PubNub.new($rc, events, lambda { |message|
       callback.call(message)
@@ -26,9 +26,9 @@ RSpec.describe 'PubNub Subscription' do
         count += 1
       })
 
-      $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
-        to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-        from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
+      $rc.post('/restapi/v1.0/account/~/extension/~/company-pager', payload: {
+        to: [{extensionId: $rc.token['owner_id']}],
+        from: {extensionId: $rc.token['owner_id']},
         text: 'Hello world'
       })
       sleep(20)
@@ -46,9 +46,9 @@ RSpec.describe 'PubNub Subscription' do
 
       subscription.refresh()
 
-      $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
-        to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-        from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
+      $rc.post('/restapi/v1.0/account/~/extension/~/company-pager', payload: {
+        to: [{extensionId: $rc.token['owner_id']}],
+        from: {extensionId: $rc.token['owner_id']},
         text: 'Hello world'
       })
       sleep(20)
@@ -66,9 +66,9 @@ RSpec.describe 'PubNub Subscription' do
 
       subscription.revoke()
 
-      $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
-        to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-        from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
+      $rc.post('/restapi/v1.0/account/~/extension/~/company-pager', payload: {
+        to: [{extensionId: $rc.token['owner_id']}],
+        from: {extensionId: $rc.token['owner_id']},
         text: 'Hello world'
       })
       sleep(20)

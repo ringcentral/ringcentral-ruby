@@ -57,9 +57,9 @@ RSpec.describe 'WebSocket Subscription' do
 
       subscription.revoke()
 
-      $rc.post('/restapi/v1.0/account/~/extension/~/sms', payload: {
-        to: [{phoneNumber: ENV['RINGCENTRAL_RECEIVER']}],
-        from: {phoneNumber: ENV['RINGCENTRAL_SENDER']},
+      $rc.post('/restapi/v1.0/account/~/extension/~/company-pager', payload: {
+        to: [{extensionId: $rc.token['owner_id']}],
+        from: {extensionId: $rc.token['owner_id']},
         text: 'Hello world'
       })
       sleep(20)
