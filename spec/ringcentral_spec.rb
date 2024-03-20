@@ -3,21 +3,20 @@ require 'ringcentral'
 RSpec.describe 'RingCentral' do
   describe 'ringcentral' do
     it 'test_class_variables' do
-      expect('https://platform.devtest.ringcentral.com').to eq(RingCentral.SANDBOX_SERVER)
       expect('https://platform.ringcentral.com').to eq(RingCentral.PRODUCTION_SERVER)
     end
 
     it 'test_initializer' do
-      rc = RingCentral.new('client_id', 'client_secret', RingCentral.SANDBOX_SERVER)
+      rc = RingCentral.new('client_id', 'client_secret', RingCentral.PRODUCTION_SERVER)
       expect('client_id').to eq(rc.client_id)
       expect('client_secret').to eq(rc.client_secret)
-      expect('https://platform.devtest.ringcentral.com').to eq(rc.server)
+      expect('https://platform.ringcentral.com').to eq(rc.server)
       expect(false).to eq(rc.auto_refresh)
     end
 
     it 'test_authorize_uri' do
-      rc = RingCentral.new('client_id', 'client_secret', RingCentral.SANDBOX_SERVER)
-      expect(RingCentral.SANDBOX_SERVER + '/restapi/oauth/authorize?client_id=client_id&redirect_uri=https%3A%2F%2Fexample.com&response_type=code&state=mystate').to eq(rc.authorize_uri('https://example.com', {state: 'mystate'}))
+      rc = RingCentral.new('client_id', 'client_secret', RingCentral.PRODUCTION_SERVER)
+      expect(RingCentral.PRODUCTION_SERVER + '/restapi/oauth/authorize?client_id=client_id&redirect_uri=https%3A%2F%2Fexample.com&response_type=code&state=mystate').to eq(rc.authorize_uri('https://example.com', {state: 'mystate'}))
     end
 
     it 'test_jwt_flow' do
