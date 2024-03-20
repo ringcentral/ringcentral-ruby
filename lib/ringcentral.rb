@@ -7,7 +7,6 @@ require 'faraday/multipart'
 require 'tmpdir'
 
 class RingCentral
-
   def self.PRODUCTION_SERVER
     'https://platform.ringcentral.com'
   end
@@ -15,7 +14,7 @@ class RingCentral
   attr_reader :client_id, :client_secret, :server, :token
   attr_accessor :auto_refresh, :debug_mode
 
-  def initialize(client_id, client_secret, server, debug_mode = false)
+  def initialize(client_id, client_secret, server = self.PRODUCTION_SERVER, debug_mode = false)
     @client_id = client_id
     @client_secret = client_secret
     @server = server

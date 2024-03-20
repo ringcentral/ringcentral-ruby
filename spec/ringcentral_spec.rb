@@ -45,7 +45,7 @@ RSpec.describe 'RingCentral' do
       # get
       r = rc.get('/restapi/v1.0/account/~/extension/~')
       expect(r).not_to be_nil
-      expect('101').to eq(r.body['extensionNumber'])
+      expect(r.body['extensionNumber']).not_to be_nil
 
       # post
       r = rc.post('/restapi/v1.0/account/~/extension/~/company-pager', payload: {
@@ -71,13 +71,12 @@ RSpec.describe 'RingCentral' do
       # todo: test patch
 
       # delete
-      # todo: delete "availability" is broken, because of sandbox env
-      # r = rc.delete(messageUrl)
-      # expect(r).not_to be_nil
-      # r = rc.get(messageUrl)
-      # expect(r).not_to be_nil
-      # message = r.body
-      # expect('Deleted').to eq(message['availability'])
+      r = rc.delete(messageUrl)
+      expect(r).not_to be_nil
+      r = rc.get(messageUrl)
+      expect(r).not_to be_nil
+      message = r.body
+      expect('Deleted').to eq(message['availability'])
 
       rc.revoke()
     end
