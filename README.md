@@ -184,7 +184,7 @@ For more sample codes, please refer to the [test cases](/spec).
 ## How to test
 
 ```
-bundle install --path vendor/bundle
+bundle install
 ```
 
 Rename `.env.sample` to `.env`.
