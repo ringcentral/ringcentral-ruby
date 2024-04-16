@@ -36,17 +36,17 @@ RSpec.describe 'WebSocket Subscription' do
         from: {extensionId: $rc.token['owner_id']},
         text: 'Hello world'
       })
-      sleep(20)
+      sleep(10)
       expect(count).to be > 0
 
       # sleep for some time and see if the websocket is still alive
-      sleep(60)
+      sleep(20)
       $rc.post('/restapi/v1.0/account/~/extension/~/company-pager', payload: {
         to: [{extensionId: $rc.token['owner_id']}],
         from: {extensionId: $rc.token['owner_id']},
         text: 'Hello world'
       })
-      sleep(20)
+      sleep(10)
       expect(count).to be > 1
 
       sub.revoke()
@@ -67,7 +67,7 @@ RSpec.describe 'WebSocket Subscription' do
         from: {extensionId: $rc.token['owner_id']},
         text: 'Hello world'
       })
-      sleep(20)
+      sleep(10)
 
       expect(count).to eq(0)
       $rc.revoke()

@@ -81,7 +81,7 @@ Access token expires. You need to call `rc.refresh()` before it expires.
 If you want the SDK to do auto refresh please `rc.auto_refresh = true` before authorization.
 
 
-### Load preexisting token
+### Load pre-existing token
 
 Let's say you already have a token. Then you can load it like this: `rc.token = your_token_object`.
 The benefit of loading a preexisting token is you don't need to go through any authorization flow.
@@ -164,21 +164,6 @@ subscription.on_ws_closed = lambda { |event|
   subscription.subscribe()
 }
 ```
-
-### (deprecated) PubNub Subscriptions
-
-```ruby
-events = [
-  '/restapi/v1.0/account/~/extension/~/message-store',
-]
-subscription = PubNub.new(rc, events, lambda { |message|
-  puts message
-})
-subscription.subscribe()
-```
-
-
-For more sample codes, please refer to the [test cases](/spec).
 
 
 ## How to test

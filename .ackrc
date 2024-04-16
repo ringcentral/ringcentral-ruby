@@ -1,2 +1,3 @@
 --ignore-dir=vendor
+--ignore-dir=coverage
 --ignore-file=match:/^Gemfile\.lock$/

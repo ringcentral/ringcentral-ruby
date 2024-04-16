@@ -4,7 +4,6 @@ require 'json'
 require 'concurrent'
 require 'faraday'
 require 'faraday/multipart'
-require 'tmpdir'
 
 class RingCentral
   def self.PRODUCTION_SERVER
