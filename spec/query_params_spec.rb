@@ -1,5 +1,7 @@
 require 'dotenv'
 require 'ringcentral'
+require "simplecov"
+SimpleCov.start
 
 RSpec.describe 'query params' do
   describe 'single' do

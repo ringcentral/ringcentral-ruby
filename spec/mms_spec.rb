@@ -1,5 +1,7 @@
 require 'dotenv'
 require 'ringcentral'
+require "simplecov"
+SimpleCov.start
 
 RSpec.describe 'MMS' do
   describe 'send MMS' do

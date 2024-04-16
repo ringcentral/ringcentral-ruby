@@ -1,4 +1,6 @@
 require 'ringcentral'
+require "simplecov"
+SimpleCov.start
 
 RSpec.describe 'RingCentral' do
   describe 'ringcentral' do
