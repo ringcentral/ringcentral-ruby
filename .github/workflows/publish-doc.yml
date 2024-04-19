@@ -1,0 +1,32 @@
+name: Publish Docs
+
+on:
+  push:
+    branches: [ master,addRubyDocs ]
+  pull_request:
+    branches: [ master ]
+permissions:
+  contents: write
+jobs:
+  test:
+    environment: prod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+      - name: Install dependencies
+        run: bundle install
+      - name: Install dependencies
+        run: gem install yard
+
+      - name: Generate Documentation
+        run: yard doc
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./doc
