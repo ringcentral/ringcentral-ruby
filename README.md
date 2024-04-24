@@ -1,12 +1,16 @@
 # RingCentral SDK for Ruby
 
 [![Ruby](https://github.com/ringcentral/ringcentral-ruby/actions/workflows/ruby.yml/badge.svg)](https://github.com/ringcentral/ringcentral-ruby/actions/workflows/ruby.yml)
+[![Reference](https://img.shields.io/badge/rubydoc-reference-blue?logo=ruby)](https://ringcentral.github.io/ringcentral-ruby/)
 [![Twitter](https://img.shields.io/twitter/follow/ringcentraldevs.svg?style=social&label=follow)](https://twitter.com/RingCentralDevs)
 
 __[RingCentral Developers](https://developer.ringcentral.com/api-products)__ is a cloud communications platform which can be accessed via more than 70 APIs. The platform's main capabilities include technologies that enable:
 __[Voice](https://developer.ringcentral.com/api-products/voice), [SMS/MMS](https://developer.ringcentral.com/api-products/sms), [Fax](https://developer.ringcentral.com/api-products/fax), [Glip Team Messaging](https://developer.ringcentral.com/api-products/team-messaging), [Data and Configurations](https://developer.ringcentral.com/api-products/configuration)__.
 
-[API Reference](https://developer.ringcentral.com/api-docs/latest/index.html) and [APIs Explorer](https://developer.ringcentral.com/api-explorer/latest/index.html).
+## Additional resources
+
+* [RingCentral API Reference](https://developer.ringcentral.com/api-docs/latest/index.html) - an interactive reference for the RingCentral API that allows developers to make API calls with no code.
+* [Document](https://ringcentral.github.io/ringcentral-ruby/) - an interactive reference for the SDK code documentation.
 
 
 ## Getting help and support
