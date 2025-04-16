@@ -21,7 +21,7 @@ GEM
     net-http (0.4.1)
       uri
     public_suffix (5.0.5)
-    rexml (3.2.6)
+    rexml (3.3.9)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -52,6 +52,7 @@ GEM
 PLATFORMS
   x86_64-darwin-20
   x86_64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   addressable (= 2.8.6)
