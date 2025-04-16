@@ -47,8 +47,8 @@ gem install ringcentral-sdk
 If for some reason `eventmachine` failed to install, please check
 [this](https://stackoverflow.com/a/31516586/862862).
 
-There is a gem with a similar name "ringcentral_sdk". That gem is not maintained
-by us.
+Please note that, there is a gem with a similar name "ringcentral_sdk" which is
+not maintained by us. Please make sure that you install the correct gem.
 
 ### Name collision with `ringcentral` gem
 
