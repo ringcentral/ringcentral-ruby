@@ -44,7 +44,7 @@ GEM
       simplecov (~> 0.19)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    uri (0.13.0)
+    uri (0.13.2)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -52,6 +52,7 @@ GEM
 PLATFORMS
   x86_64-darwin-20
   x86_64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   addressable (= 2.8.6)
