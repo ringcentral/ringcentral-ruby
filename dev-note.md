@@ -4,20 +4,17 @@
 bundle update
 ```
 
-
 ## Test
 
 ```
 bundle exec rspec
 ```
 
-
 ### Run a specific test case
 
 ```
 bundle exec rspec spec/path/to/test.rb
 ```
-
 
 ## Deploy
 
