@@ -1,10 +1,10 @@
 Gem::Specification.new do |gem|
   gem.name          = 'ringcentral-sdk'
-  gem.version       = '1.1.0'
+  gem.version       = '1.1.2'
   gem.authors       = ['Tyler Liu']
   gem.email         = ['tyler.liu@ringcentral.com']
-  gem.description   = 'Ruby SDK for you to access RingCentral platform APIs. This is the **official** RingCentral SDK for the Ruby programming language. While there are other Ruby SDKs for RingCentral, those are maintained by the community. We\'re including this clarification to help avoid confusion, as some SDKs have similar names. That said, we truly appreciate and welcome community contributions and alternative SDKs.'
-  gem.summary       = 'The official RingCentral Ruby SDK.'
+  gem.description   = 'This is the **official** RingCentral SDK for the Ruby programming language. While there are other Ruby SDKs for RingCentral, those are maintained by the community. We\'re including this clarification to help avoid confusion, as some SDKs have similar names. That said, we truly appreciate and welcome community contributions and alternative SDKs.'
+  gem.summary       = 'The **official** RingCentral Ruby SDK.'
   gem.homepage      = 'https://github.com/ringcentral/ringcentral-ruby'
   gem.license       = 'MIT'
 
