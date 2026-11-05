@@ -22,7 +22,7 @@ RSpec.describe 'RingCentral' do
     end
 
     it 'test_jwt_flow' do
-      Dotenv.load
+      Dotenv.load(overwrite: true)
       rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
       expect(rc.token).to be_nil
 
@@ -40,7 +40,7 @@ RSpec.describe 'RingCentral' do
     end
 
     it 'test_http_methods' do
-      Dotenv.load
+      Dotenv.load(overwrite: true)
       rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
       rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
 
