@@ -9,9 +9,9 @@ jobs:
     environment: prod
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7.0.1
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v1.336.0
         with:
           ruby-version: "4.0"
       - name: Install dependencies
@@ -30,9 +30,9 @@ jobs:
     needs: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7.0.1
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v1.336.0
         with:
           ruby-version: "4.0"
       - name: Install dependencies
@@ -42,7 +42,7 @@ jobs:
         run: |
           TAG_NAME=${GITHUB_REF#refs/tags/}
           VERSION=$(echo "$TAG_NAME" | sed 's/^v//')
-          echo "::set-output name=version::$VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Update gemspec file with version
         run: sed -i "s/gem.version\s*=\s*'.*'/gem.version = '${{ steps.extract_version.outputs.version }}'/" ringcentral-sdk.gemspec
       - name: Build gem
