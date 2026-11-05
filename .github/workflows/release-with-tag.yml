@@ -4,8 +4,16 @@ on:
   push:
     tags:
       - "*"
+permissions:
+  contents: read
+
 jobs:
   Test:
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        ruby: ["3.3", "3.4", "4.0"]
     environment: prod
     runs-on: ubuntu-latest
     steps:
@@ -13,11 +21,20 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1.336.0
         with:
-          ruby-version: "4.0"
+          ruby-version: ${{ matrix.ruby }}
       - name: Install dependencies
         run: bundle install
       - name: Run tests
-        run: bundle exec rspec
+        run: |
+          ruby <<'RUBY'
+          required = %w[
+            RINGCENTRAL_SERVER_URL RINGCENTRAL_CLIENT_ID RINGCENTRAL_CLIENT_SECRET
+            RINGCENTRAL_JWT_TOKEN RINGCENTRAL_SENDER RINGCENTRAL_RECEIVER
+          ]
+          missing = required.select { |name| ENV[name].to_s.strip.empty? }
+          abort "Missing required credentials: #{missing.join(', ')}" unless missing.empty?
+          RUBY
+          bundle exec rspec
         env:
           RINGCENTRAL_SERVER_URL: ${{ secrets.RINGCENTRAL_SERVER_URL }}
           RINGCENTRAL_CLIENT_ID: ${{ secrets.RINGCENTRAL_CLIENT_ID }}
@@ -25,6 +42,12 @@ jobs:
           RINGCENTRAL_JWT_TOKEN: ${{ secrets.RINGCENTRAL_JWT_TOKEN }}
           RINGCENTRAL_SENDER: ${{ secrets.RINGCENTRAL_SENDER }}
           RINGCENTRAL_RECEIVER: ${{ secrets.RINGCENTRAL_RECEIVER }}
+      - name: View Report
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: coverage-ruby-${{ matrix.ruby }}
+          path: coverage/
+          if-no-files-found: error
   Release:
     environment: prod
     needs: Test

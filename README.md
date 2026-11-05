@@ -200,7 +200,8 @@ subscription.on_ws_closed = lambda { |event|
 
 ## How to test
 
-Install dependencies with `bundle install`, then copy `.env.sample` to `.env`
+Use Ruby 3.3, 3.4 or 4.0 (the supported CI matrix). Install dependencies with
+`bundle install`, then copy `.env.sample` to `.env`
 and fill in every value:
 
 - `RINGCENTRAL_SERVER_URL`: API server (production by default in the sample).
@@ -235,6 +236,31 @@ bundle exec rspec spec/ringcentral_spec.rb:15
 
 Coverage is written to `coverage/index.html` for both full and selected runs.
 A selected run measures only the SDK code exercised by those examples.
+
+### Continuous integration
+
+Normal push/PR CI and release-tag validation run the complete live suite on Ruby
+3.3, 3.4 and 4.0. Matrix entries run sequentially against the shared account,
+recipient and greeting. This limit applies within each workflow run: maintainers
+must also avoid overlapping test workflows, release workflows and local suites
+using the same account. Wait for the active run to finish before starting another.
+Coverage artifacts are named by Ruby version; missing coverage fails the job.
+Release publication runs once, only after every release-matrix entry succeeds.
+
+Both workflows use the `prod` environment and require all six `RINGCENTRAL_*`
+variables listed above as secrets. Before tests run, missing values fail the job
+with variable names only. Maintainers must configure secrets and environment
+access/approval rules for trusted code; never approve untrusted PR code for access
+to the test account. Ordinary `pull_request` events are retained: fork PRs cannot
+receive the repository's secrets, so their full-suite CI will fail clearly until
+trusted changes can be validated in an authorized context. No privileged PR
+trigger runs untrusted code with credentials.
+
+[Dependabot does not receive ordinary Actions secrets](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-on-actions). Maintainers must provision
+separately supported Dependabot secrets and check the `prod` environment's access
+rules if trusted Dependabot runs are to execute the full suite. If the event or
+environment cannot supply credentials, CI fails rather than skipping live tests.
+Environment protections remain in force; no secret values belong in PRs or logs.
 
 ## License
 
