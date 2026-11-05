@@ -201,7 +201,8 @@ the connection is closed.</p>
 <span class='rbrace'>}</span>
 </code></pre>
 <h2 id="How_to_test">How to test</h2>
-<p>Install dependencies with <code>bundle install</code>, then copy <code>.env.sample</code> to <code>.env</code>
+<p>Use Ruby 3.3, 3.4 or 4.0 (the supported CI matrix). Install dependencies with
+<code>bundle install</code>, then copy <code>.env.sample</code> to <code>.env</code>
 and fill in every value:</p>
 <ul>
 <li><code>RINGCENTRAL_SERVER_URL</code>: API server (production by default in the sample).</li>
@@ -221,18 +222,42 @@ the SDK and loads dotenv for every spec.</p>
 changes message read/deletion state, uploads and applies a voicemail greeting,
 and opens WebSocket subscriptions. Use a dedicated test account and agreed
 recipient. Run suites sharing the account, recipient or greeting sequentially.
-The greeting example uses the SDK's existing multipart upload functionality.</p>
+The greeting example uses the SDK's existing multipart upload functionality.
+WebSocket examples wait for a new active subscription before sending, allow up to
+30 seconds for each notification, and observe revoked subscriptions for 30 seconds.
+Cleanup runs even when an assertion fails.</p>
 <p>Select a single file or example by line number with the same shared setup:</p>
 <pre class="code sh"><code class="sh">bundle exec rspec spec/ringcentral_spec.rb
 bundle exec rspec spec/ringcentral_spec.rb:15
 </code></pre>
 <p>Coverage is written to <code>coverage/index.html</code> for both full and selected runs.
 A selected run measures only the SDK code exercised by those examples.</p>
+<h3 id="Continuous_integration">Continuous integration</h3>
+<p>Normal push/PR CI and release-tag validation run the complete live suite on Ruby
+3.3, 3.4 and 4.0. Matrix entries run sequentially against the shared account,
+recipient and greeting. This limit applies within each workflow run: maintainers
+must also avoid overlapping test workflows, release workflows and local suites
+using the same account. Wait for the active run to finish before starting another.
+Coverage artifacts are named by Ruby version; missing coverage fails the job.
+Release publication runs once, only after every release-matrix entry succeeds.</p>
+<p>Both workflows use the <code>prod</code> environment and require all six <code>RINGCENTRAL_*</code>
+variables listed above as secrets. Before tests run, missing values fail the job
+with variable names only. Maintainers must configure secrets and environment
+access/approval rules for trusted code; never approve untrusted PR code for access
+to the test account. Ordinary <code>pull_request</code> events are retained: fork PRs cannot
+receive the repository's secrets, so their full-suite CI will fail clearly until
+trusted changes can be validated in an authorized context. No privileged PR
+trigger runs untrusted code with credentials.</p>
+<p><a href="https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-on-actions">Dependabot does not receive ordinary Actions secrets</a>. Maintainers must provision
+separately supported Dependabot secrets and check the <code>prod</code> environment's access
+rules if trusted Dependabot runs are to execute the full suite. If the event or
+environment cannot supply credentials, CI fails rather than skipping live tests.
+Environment protections remain in force; no secret values belong in PRs or logs.</p>
 <h2 id="License">License</h2>
 <p>MIT</p></div></div>
 
       <div id="footer">
-  Generated on Thu Nov  5 23:05:00 2026 by
+  Generated on Thu Nov  5 23:20:45 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.9).
 </div>
