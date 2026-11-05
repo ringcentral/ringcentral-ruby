@@ -40,6 +40,10 @@ contributions and alternative SDKs.
 
 ## Installation
 
+Version 2.0.0 requires **Ruby 3.3 or newer**. Upgrade Ruby before updating from
+1.x if needed. Local development uses Ruby 4.0; CI validates Ruby 3.3, 3.4 and
+4.0. The existing public SDK interfaces are preserved. See [release notes](CHANGELOG.md).
+
 ```
 gem install ringcentral-sdk
 ```
@@ -164,6 +168,23 @@ r = rc.post('/restapi/v1.0/account/~/extension/~/sms',
     ]
 )
 ```
+
+### Upload and apply a voicemail greeting
+
+After authorization, use the existing multipart upload interface:
+
+```ruby
+rc.post('/restapi/v1.0/account/~/extension/~/greeting',
+    params: { apply: true },
+    payload: { type: 'Voicemail', stateId: 'work-hours' },
+    files: [['spec/test.wav', 'audio/wav']]
+)
+```
+
+This replaces the extension's work-hours voicemail greeting. Use `apply: false`
+to upload without assigning it. The retained checkout fixture `spec/test.wav`
+says "hello world"; fixtures are not included in the installed gem. This example
+uses an existing SDK capability, with no new multipart API.
 
 ## Subscriptions
 
