@@ -1,12 +1,6 @@
-require 'dotenv'
-require 'ringcentral'
-require "simplecov"
-SimpleCov.start
-
 RSpec.describe 'Fax' do
   describe 'send fax' do
     it 'should send a fax' do
-      Dotenv.load(overwrite: true)
       rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
       rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
       r = rc.post('/restapi/v1.0/account/~/extension/~/fax',

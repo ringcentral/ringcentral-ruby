@@ -1,7 +1,3 @@
-require 'ringcentral'
-require "simplecov"
-SimpleCov.start
-
 RSpec.describe 'RingCentral' do
   describe 'ringcentral' do
     it 'test_class_variables' do
@@ -16,13 +12,18 @@ RSpec.describe 'RingCentral' do
       expect(false).to eq(rc.auto_refresh)
     end
 
+    it 'uses the production server by default without making a request' do
+      expect_any_instance_of(Faraday::Connection).not_to receive(:run_request)
+      rc = RingCentral.new('client_id', 'client_secret')
+      expect(rc.server).to eq(RingCentral.PRODUCTION_SERVER)
+    end
+
     it 'test_authorize_uri' do
       rc = RingCentral.new('client_id', 'client_secret', RingCentral.PRODUCTION_SERVER)
       expect(RingCentral.PRODUCTION_SERVER + '/restapi/oauth/authorize?client_id=client_id&redirect_uri=https%3A%2F%2Fexample.com&response_type=code&state=mystate').to eq(rc.authorize_uri('https://example.com', {state: 'mystate'}))
     end
 
     it 'test_jwt_flow' do
-      Dotenv.load(overwrite: true)
       rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
       expect(rc.token).to be_nil
 
@@ -40,7 +41,6 @@ RSpec.describe 'RingCentral' do
     end
 
     it 'test_http_methods' do
-      Dotenv.load(overwrite: true)
       rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
       rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
 

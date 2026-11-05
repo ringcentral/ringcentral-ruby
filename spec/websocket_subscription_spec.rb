@@ -1,11 +1,6 @@
-require 'ringcentral'
 require 'subscription'
-require 'dotenv'
 require 'rspec'
-require "simplecov"
-SimpleCov.start
 
-Dotenv.load(overwrite: true)
 $rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
 
 RSpec.describe 'WebSocket Subscription' do

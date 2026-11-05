@@ -200,17 +200,41 @@ subscription.on_ws_closed = lambda { |event|
 
 ## How to test
 
+Install dependencies with `bundle install`, then copy `.env.sample` to `.env`
+and fill in every value:
+
+- `RINGCENTRAL_SERVER_URL`: API server (production by default in the sample).
+- `RINGCENTRAL_CLIENT_ID` and `RINGCENTRAL_CLIENT_SECRET`: application credentials.
+- `RINGCENTRAL_JWT_TOKEN`: JWT for the test extension.
+- `RINGCENTRAL_SENDER`: the test extension's SMS/MMS-capable phone number.
+- `RINGCENTRAL_RECEIVER`: a phone number that can receive the test SMS/MMS and fax.
+
+Keep real credentials and phone numbers in the ignored `.env` file. Values in
+that file override inherited environment variables. RSpec automatically loads
+`spec/spec_helper.rb` through `.rspec`; the helper starts coverage before loading
+the SDK and loads dotenv for every spec.
+
+Run the complete suite from the repository root:
+
+```sh
+bundle exec rspec
 ```
-bundle install
+
+The default suite makes live API calls: it sends fax, MMS and pager messages,
+changes message read/deletion state, uploads and applies a voicemail greeting,
+and opens WebSocket subscriptions. Use a dedicated test account and agreed
+recipient. Run suites sharing the account, recipient or greeting sequentially.
+The greeting example uses the SDK's existing multipart upload functionality.
+
+Select a single file or example by line number with the same shared setup:
+
+```sh
+bundle exec rspec spec/ringcentral_spec.rb
+bundle exec rspec spec/ringcentral_spec.rb:15
 ```
 
-Rename `.env.sample` to `.env`.
-
-Edit `.env` file to specify credentials.
-
-`RINGCENTRAL_RECEIVER` is a phone number to receive SMS, Fax..etc.
-
-Run `bundle exec rspec`
+Coverage is written to `coverage/index.html` for both full and selected runs.
+A selected run measures only the SDK code exercised by those examples.
 
 ## License
 

@@ -1,12 +1,6 @@
-require 'dotenv'
-require 'ringcentral'
-require "simplecov"
-SimpleCov.start
-
 RSpec.describe 'Greeting' do
   describe 'create custom user greeting' do
     it 'should upload and apply a custom work-hours voicemail greeting' do
-      Dotenv.load(overwrite: true)
       rc = RingCentral.new(ENV['RINGCENTRAL_CLIENT_ID'], ENV['RINGCENTRAL_CLIENT_SECRET'], ENV['RINGCENTRAL_SERVER_URL'])
       rc.authorize(jwt: ENV['RINGCENTRAL_JWT_TOKEN'])
 

@@ -13,7 +13,7 @@ class RingCentral
   attr_reader :client_id, :client_secret, :server, :token
   attr_accessor :auto_refresh, :debug_mode
 
-  def initialize(client_id, client_secret, server = self.PRODUCTION_SERVER, debug_mode = false)
+  def initialize(client_id, client_secret, server = RingCentral.PRODUCTION_SERVER, debug_mode = false)
     @client_id = client_id
     @client_secret = client_secret
     @server = server
