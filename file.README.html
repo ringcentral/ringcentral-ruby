@@ -93,6 +93,9 @@ community. We’re including this clarification to help avoid confusion, as some
 SDKs have similar names. That said, we truly appreciate and welcome community
 contributions and alternative SDKs.</p>
 <h2 id="Installation">Installation</h2>
+<p>Version 2.0.0 requires <strong>Ruby 3.3 or newer</strong>. Upgrade Ruby before updating from
+1.x if needed. Local development uses Ruby 4.0; CI validates Ruby 3.3, 3.4 and
+4.0. The existing public SDK interfaces are preserved. See <a href="CHANGELOG.md">release notes</a>.</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_ringcentral'>ringcentral</span><span class='op'>-</span><span class='id identifier rubyid_sdk'>sdk</span>
 </code></pre>
 <p>If for some reason <code>eventmachine</code> failed to install, please check
@@ -175,6 +178,18 @@ you can set it like this:</p>
     <span class='rbracket'>]</span>
 <span class='rparen'>)</span>
 </code></pre>
+<h3 id="Upload_and_apply_a_voicemail_greeting">Upload and apply a voicemail greeting</h3>
+<p>After authorization, use the existing multipart upload interface:</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/restapi/v1.0/account/~/extension/~/greeting</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='label'>params:</span> <span class='lbrace'>{</span> <span class='label'>apply:</span> <span class='kw'>true</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>payload:</span> <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Voicemail</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>stateId:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>work-hours</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>files:</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spec/test.wav</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>audio/wav</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+<span class='rparen'>)</span>
+</code></pre>
+<p>This replaces the extension's work-hours voicemail greeting. Use <code>apply: false</code>
+to upload without assigning it. The retained checkout fixture <code>spec/test.wav</code>
+says &quot;hello world&quot;; fixtures are not included in the installed gem. This example
+uses an existing SDK capability, with no new multipart API.</p>
 <h2 id="Subscriptions">Subscriptions</h2>
 <h3 id="WebSocket_Subscriptions">WebSocket Subscriptions</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_events'>events</span> <span class='op'>=</span> <span class='lbracket'>[</span>
@@ -257,7 +272,7 @@ Environment protections remain in force; no secret values belong in PRs or logs.
 <p>MIT</p></div></div>
 
       <div id="footer">
-  Generated on Thu Nov  5 23:20:45 2026 by
+  Generated on Thu Nov  5 23:32:02 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-4.0.9).
 </div>
