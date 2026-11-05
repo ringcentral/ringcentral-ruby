@@ -6,13 +6,13 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.36
+    &mdash; Documentation by YARD 0.9.45
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" />
+  <link rel="stylesheet" href="css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "README";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="file_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -57,45 +59,56 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<h1 id="label-RingCentral+SDK+for+Ruby">RingCentral SDK for Ruby</h1>
-
-<p><a href="https://github.com/ringcentral/ringcentral-ruby/actions/workflows/ruby.yml"><img src="https://github.com/ringcentral/ringcentral-ruby/actions/workflows/ruby.yml/badge.svg"></a> <a href="https://ringcentral.github.io/ringcentral-ruby/"><img src="https://img.shields.io/badge/rubydoc-reference-blue?logo=ruby"></a> <a href="https://twitter.com/RingCentralDevs"><img src="https://img.shields.io/twitter/follow/ringcentraldevs.svg?style=social&amp;label=follow"></a></p>
-
-<p><strong><span class='object_link'><a href="RingCentral.html" title="RingCentral (class)">Developers</a></span>[https://developer.ringcentral.com/api-products]</strong> is a cloud communications platform which can be accessed via more than 70 APIs. The platform’s main capabilities include technologies that enable: <strong>Voice[https://developer.ringcentral.com/api-products/voice], SMS/MMS[https://developer.ringcentral.com/api-products/sms], Fax[https://developer.ringcentral.com/api-products/fax], Team Messaging[https://developer.ringcentral.com/api-products/team-messaging], and Configurations[https://developer.ringcentral.com/api-products/configuration]</strong>.</p>
-
-<h2 id="label-Additional+resources">Additional resources</h2>
-<ul><li>
-<p><a href="https://developer.ringcentral.com/api-docs/latest/index.html">RingCentral API Reference</a> - an interactive reference for the RingCentral API that allows developers to make API calls with no code.</p>
-</li><li>
-<p><a href="https://ringcentral.github.io/ringcentral-ruby/">Document</a> - an interactive reference for the SDK code documentation.</p>
-</li></ul>
-
-<h2 id="label-Getting+help+and+support">Getting help and support</h2>
-
-<p>If you are having difficulty using this SDK, or working with the RingCentral API, please visit our <a href="https://community.ringcentral.com/spaces/144/">developer community forums</a> for help and to get quick answers to your questions. If you wish to contact the RingCentral Developer Support team directly, please <a href="https://developers.ringcentral.com/support/create-case">submit a help ticket</a> from our developer website.</p>
-
-<h2 id="label-Installation">Installation</h2>
-
+      <div id="content"><div id='filecontents'><h1 id="Official_RingCentral_SDK_for_Ruby">Official RingCentral SDK for Ruby</h1>
+<p><a href="https://ringcentral.github.io/ringcentral-ruby/"><img src="https://img.shields.io/badge/rubydoc-reference-blue?logo=ruby" alt="Reference" /></a>
+<a href="https://twitter.com/RingCentralDevs"><img src="https://img.shields.io/twitter/follow/ringcentraldevs.svg?style=social&amp;label=follow" alt="Twitter" /></a></p>
+<p><strong><a href="https://developer.ringcentral.com/api-products">RingCentral Developers</a></strong> is
+a cloud communications platform which can be accessed via more than 70 APIs. The
+platform's main capabilities include technologies that enable:
+<strong><a href="https://developer.ringcentral.com/api-products/voice">Voice</a>,
+<a href="https://developer.ringcentral.com/api-products/sms">SMS/MMS</a>,
+<a href="https://developer.ringcentral.com/api-products/fax">Fax</a>,
+<a href="https://developer.ringcentral.com/api-products/team-messaging">Glip Team Messaging</a>,
+<a href="https://developer.ringcentral.com/api-products/configuration">Data and Configurations</a></strong>.</p>
+<h2 id="Additional_resources">Additional resources</h2>
+<ul>
+<li><a href="https://developer.ringcentral.com/api-docs/latest/index.html">RingCentral API Reference</a> -
+an interactive reference for the RingCentral API that allows developers to
+make API calls with no code.</li>
+<li><a href="https://ringcentral.github.io/ringcentral-ruby/">Document</a> - an interactive
+reference for the SDK code documentation.</li>
+</ul>
+<h2 id="Getting_help_and_support">Getting help and support</h2>
+<p>If you are having difficulty using this SDK, or working with the RingCentral
+API, please visit our
+<a href="https://community.ringcentral.com/spaces/144/">developer community forums</a> for
+help and to get quick answers to your questions. If you wish to contact the
+RingCentral Developer Support team directly, please
+<a href="https://developers.ringcentral.com/support/create-case">submit a help ticket</a>
+from our developer website.</p>
+<h2 id="Official_VS__Community_maintained_SDKs">Official VS. Community maintained SDKs</h2>
+<p>This is the <strong>official</strong> RingCentral SDK for the Ruby programming language.
+While there are other Ruby SDKs for RingCentral, those are maintained by the
+community. We’re including this clarification to help avoid confusion, as some
+SDKs have similar names. That said, we truly appreciate and welcome community
+contributions and alternative SDKs.</p>
+<h2 id="Installation">Installation</h2>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_ringcentral'>ringcentral</span><span class='op'>-</span><span class='id identifier rubyid_sdk'>sdk</span>
 </code></pre>
-
-<p>If for some reason <code>eventmachine</code> failed to install, please check <a href="https://stackoverflow.com/a/31516586/862862">this</a>.</p>
-
-<h3 id="label-Name+collision+with+ringcentral+gem">Name collision with <code>ringcentral</code> gem</h3>
-
-<p>The <code>ringcentral</code> gem is using RingCentral’s legacy API which was End-of-Lifed in 2018. Everyone is recommended to move to the REST API.</p>
-
-<p>If you have both the <code>ringcentral</code> and <code>ringcentral-sdk</code> gems installed, you will run into a collision error when attempting to initialize the <code>ringcentral-sdk</code> RingCentral SDK.</p>
-
+<p>If for some reason <code>eventmachine</code> failed to install, please check
+<a href="https://stackoverflow.com/a/31516586/862862">this</a>.</p>
+<p>Please note that, there is a gem with a similar name &quot;ringcentral_sdk&quot; which is
+not maintained by us. Please make sure that you install the correct gem.</p>
+<h3 id="Name_collision_with__ringcentral__gem">Name collision with <code>ringcentral</code> gem</h3>
+<p>The <code>ringcentral</code> gem is using RingCentral's legacy API which was End-of-Lifed
+in 2018. Everyone is recommended to move to the REST API.</p>
+<p>If you have both the <code>ringcentral</code> and <code>ringcentral-sdk</code> gems installed, you
+will run into a collision error when attempting to initialize the
+<code>ringcentral-sdk</code> RingCentral SDK.</p>
 <p>The solution is <code>gem uninstall ringcentral</code></p>
-
-<h2 id="label-Documentation">Documentation</h2>
-
-<p><a href="https://developer.ringcentral.com/api-docs/latest/index.html">developer.ringcentral.com/api-docs/latest/index.html</a></p>
-
-<h2 id="label-Usage">Usage</h2>
-
+<h2 id="Documentation">Documentation</h2>
+<p><a href="https://developer.ringcentral.com/api-docs/latest/index.html">https://developer.ringcentral.com/api-docs/latest/index.html</a></p>
+<h2 id="Usage">Usage</h2>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ringcentral</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='id identifier rubyid_rc'>rc</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="RingCentral.html" title="RingCentral (class)">RingCentral</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="RingCentral.html#initialize-instance_method" title="RingCentral#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>clientID</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>clientSecret</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>serverURL</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -106,52 +119,42 @@
 <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_not_to'>not_to</span> <span class='id identifier rubyid_be_nil'>be_nil</span>
 <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>101</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_eq'>eq</span><span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>extensionNumber</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
 </code></pre>
-
-<h2 id="label-How+to+specify+query+parameters">How to specify query parameters</h2>
-
-<h3 id="label-for+get+-26+delete">for get &amp; delete</h3>
-
+<h2 id="Samples">Samples</h2>
+<p>For more code samples, please refer to the test cases in <code>spec</code> folder.</p>
+<h2 id="How_to_specify_query_parameters">How to specify query parameters</h2>
+<h3 id="for_get___delete">for get &amp; delete</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/restapi/v1.0/account/~/extension</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>hello:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>world</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 </code></pre>
-
-<h3 id="label-for+post-2C+put+-26+patch">for post, put &amp; patch</h3>
-
+<h3 id="for_post__put___patch">for post, put &amp; patch</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/restapi/v1.0/account/~/extension/~/sms</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='label'>params:</span> <span class='lbrace'>{</span> <span class='label'>hello:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>world</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 </code></pre>
-
-<h3 id="label-multi-value+query+parameter">multi-value query parameter</h3>
-
+<h3 id="multi_value_query_parameter">multi-value query parameter</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/restapi/v1.0/account/~/extension</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>hello:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>world1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>world2</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 </code></pre>
-
-<p>Above will be translated to <code>/restapi/v1.0/account/~/extension?hello=world1&amp;hello=world2</code>.</p>
-
-<h3 id="label-Token+Refresh">Token Refresh</h3>
-
-<p>Access token expires. You need to call <code>rc.refresh()</code> before it expires. If you want the SDK to do auto refresh please <code>rc.auto_refresh = true</code> before authorization.</p>
-
-<h3 id="label-Load+pre-existing+token">Load pre-existing token</h3>
-
-<p>Let’s say you already have a token. Then you can load it like this: <code>rc.token = your_token_object</code>. The benefit of loading a preexisting token is you don’t need to go through any authorization flow.</p>
-
-<p>If what you have is a JSON string instead of a Ruby object, you need to convert it first: <code>JSON.parse(your_token_string)</code>.</p>
-
-<p>If you only have a string for the access token instead of for the whole object, you can set it like this:</p>
-
+<p>Above will be translated to
+<code>/restapi/v1.0/account/~/extension?hello=world1&amp;hello=world2</code>.</p>
+<h3 id="Token_Refresh">Token Refresh</h3>
+<p>Access token expires. You need to call <code>rc.refresh()</code> before it expires. If you
+want the SDK to do auto refresh please <code>rc.auto_refresh = true</code> before
+authorization.</p>
+<h3 id="Load_pre_existing_token">Load pre-existing token</h3>
+<p>Let's say you already have a token. Then you can load it like this:
+<code>rc.token = your_token_object</code>. The benefit of loading a preexisting token is
+you don't need to go through any authorization flow.</p>
+<p>If what you have is a JSON string instead of a Ruby object, you need to convert
+it first: <code>JSON.parse(your_token_string)</code>.</p>
+<p>If you only have a string for the access token instead of for the whole object,
+you can set it like this:</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_token'>token</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>access_token:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the token string</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
 </code></pre>
-
-<h3 id="label-Send+SMS">Send SMS</h3>
-
+<h3 id="Send_SMS">Send SMS</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/restapi/v1.0/account/~/extension/~/sms</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='lbrace'>{</span>
     <span class='label'>to:</span> <span class='lbracket'>[</span><span class='lbrace'>{</span><span class='label'>phoneNumber:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>RINGCENTRAL_RECEIVER</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span>
     <span class='label'>from:</span> <span class='lbrace'>{</span><span class='label'>phoneNumber:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>RINGCENTRAL_SENDER</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='comma'>,</span>
     <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Hello world</span><span class='tstring_end'>&#39;</span></span>
 <span class='rbrace'>}</span><span class='rparen'>)</span>
 </code></pre>
-
-<h3 id="label-Send+fax">Send fax</h3>
-
+<h3 id="Send_fax">Send fax</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/restapi/v1.0/account/~/extension/~/fax</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
 <span class='label'>payload:</span> <span class='lbrace'>{</span> <span class='label'>to:</span> <span class='lbracket'>[</span><span class='lbrace'>{</span> <span class='label'>phoneNumber:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>RINGCENTRAL_RECEIVER</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='comma'>,</span>
     <span class='label'>files:</span> <span class='lbracket'>[</span>
@@ -160,9 +163,7 @@
     <span class='rbracket'>]</span>
 <span class='rparen'>)</span>
 </code></pre>
-
-<h3 id="label-Send+MMS">Send MMS</h3>
-
+<h3 id="Send_MMS">Send MMS</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_rc'>rc</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/restapi/v1.0/account/~/extension/~/sms</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
     <span class='label'>payload:</span> <span class='lbrace'>{</span>
         <span class='label'>to:</span> <span class='lbracket'>[</span><span class='lbrace'>{</span> <span class='label'>phoneNumber:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>RINGCENTRAL_RECEIVER</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -174,11 +175,8 @@
     <span class='rbracket'>]</span>
 <span class='rparen'>)</span>
 </code></pre>
-
-<h2 id="label-Subscriptions">Subscriptions</h2>
-
-<h3 id="label-WebSocket+Subscriptions">WebSocket Subscriptions</h3>
-
+<h2 id="Subscriptions">Subscriptions</h2>
+<h3 id="WebSocket_Subscriptions">WebSocket Subscriptions</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_events'>events</span> <span class='op'>=</span> <span class='lbracket'>[</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/restapi/v1.0/account/~/extension/~/message-store</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
 <span class='rbracket'>]</span>
@@ -187,46 +185,56 @@
 <span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_subscription'>subscription</span><span class='period'>.</span><span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='rparen'>)</span>
 </code></pre>
-
-<h4 id="label-How+to+keep+a+subscription+running+24+-2A+7-3F">How to keep a subscription running 24 * 7?</h4>
-
+<h4 id="How_to_keep_a_subscription_running_24___7_">How to keep a subscription running 24 * 7?</h4>
 <p>There are two main cases that a subscription will be terminated:</p>
-<ul><li>
-<p>Absolute time out. The maximum time for a subscription to run is 24 hours. After that, the websocket connection will be closed by the server.</p>
-</li><li>
-<p>Network issue. It could be your local network issue or the server’s network issue. In either case, your websocket connection will be closed</p>
-</li></ul>
-
-<p>In order to keep a subscription running 24 * 7, you need to re-subscribe when the connection is closed.</p>
-
+<ul>
+<li>Absolute time out. The maximum time for a subscription to run is 24 hours.
+After that, the websocket connection will be closed by the server.</li>
+<li>Network issue. It could be your local network issue or the server's network
+issue. In either case, your websocket connection will be closed</li>
+</ul>
+<p>In order to keep a subscription running 24 * 7, you need to re-subscribe when
+the connection is closed.</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_subscription'>subscription</span><span class='period'>.</span><span class='id identifier rubyid_on_ws_closed'>on_ws_closed</span> <span class='op'>=</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
   <span class='comment'># make sure that there is no network issue and re-subscribe
 </span>  <span class='id identifier rubyid_subscription'>subscription</span><span class='period'>.</span><span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='rbrace'>}</span>
 </code></pre>
-
-<h2 id="label-How+to+test">How to test</h2>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span>
+<h2 id="How_to_test">How to test</h2>
+<p>Install dependencies with <code>bundle install</code>, then copy <code>.env.sample</code> to <code>.env</code>
+and fill in every value:</p>
+<ul>
+<li><code>RINGCENTRAL_SERVER_URL</code>: API server (production by default in the sample).</li>
+<li><code>RINGCENTRAL_CLIENT_ID</code> and <code>RINGCENTRAL_CLIENT_SECRET</code>: application credentials.</li>
+<li><code>RINGCENTRAL_JWT_TOKEN</code>: JWT for the test extension.</li>
+<li><code>RINGCENTRAL_SENDER</code>: the test extension's SMS/MMS-capable phone number.</li>
+<li><code>RINGCENTRAL_RECEIVER</code>: a phone number that can receive the test SMS/MMS and fax.</li>
+</ul>
+<p>Keep real credentials and phone numbers in the ignored <code>.env</code> file. Values in
+that file override inherited environment variables. RSpec automatically loads
+<code>spec/spec_helper.rb</code> through <code>.rspec</code>; the helper starts coverage before loading
+the SDK and loads dotenv for every spec.</p>
+<p>Run the complete suite from the repository root:</p>
+<pre class="code sh"><code class="sh">bundle exec rspec
 </code></pre>
-
-<p>Rename <code>.env.sample</code> to <code>.env</code>.</p>
-
-<p>Edit <code>.env</code> file to specify credentials.</p>
-
-<p><code>RINGCENTRAL_RECEIVER</code> is a phone number to receive SMS, Fax..etc.</p>
-
-<p>Run <code>bundle exec rspec</code></p>
-
-<h2 id="label-License">License</h2>
-
-<p>MIT</p>
-</div></div>
+<p>The default suite makes live API calls: it sends fax, MMS and pager messages,
+changes message read/deletion state, uploads and applies a voicemail greeting,
+and opens WebSocket subscriptions. Use a dedicated test account and agreed
+recipient. Run suites sharing the account, recipient or greeting sequentially.
+The greeting example uses the SDK's existing multipart upload functionality.</p>
+<p>Select a single file or example by line number with the same shared setup:</p>
+<pre class="code sh"><code class="sh">bundle exec rspec spec/ringcentral_spec.rb
+bundle exec rspec spec/ringcentral_spec.rb:15
+</code></pre>
+<p>Coverage is written to <code>coverage/index.html</code> for both full and selected runs.
+A selected run measures only the SDK code exercised by those examples.</p>
+<h2 id="License">License</h2>
+<p>MIT</p></div></div>
 
       <div id="footer">
-  Generated on Thu May 16 22:02:18 2024 by
+  Generated on Thu Nov  5 23:05:01 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.36 (ruby-3.2.4).
+  0.9.45 (ruby-4.0.9).
 </div>
 
     </div>
