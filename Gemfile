@@ -10,5 +10,4 @@ group :test do
   gem 'dotenv'
   gem 'rspec'
   gem 'simplecov'
-  gem 'simplecov-cobertura'
 end
