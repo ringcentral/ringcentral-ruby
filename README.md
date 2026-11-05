@@ -226,6 +226,9 @@ changes message read/deletion state, uploads and applies a voicemail greeting,
 and opens WebSocket subscriptions. Use a dedicated test account and agreed
 recipient. Run suites sharing the account, recipient or greeting sequentially.
 The greeting example uses the SDK's existing multipart upload functionality.
+WebSocket examples wait for a new active subscription before sending, allow up to
+30 seconds for each notification, and observe revoked subscriptions for 30 seconds.
+Cleanup runs even when an assertion fails.
 
 Select a single file or example by line number with the same shared setup:
 
