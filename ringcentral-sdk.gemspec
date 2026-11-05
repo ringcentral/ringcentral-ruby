@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.license       = 'MIT'
 
   gem.require_paths = ['lib']
-  gem.files         = %w(README.md ringcentral-sdk.gemspec)
+  gem.files         = %w(README.md CHANGELOG.md LICENSE.md ringcentral-sdk.gemspec)
   gem.files        += Dir['lib/**/*.rb']
   gem.test_files    = Dir['spec/**/*.rb']
 
